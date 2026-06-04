@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hobbyrat.github.io/portfolio/sitemap.xml
+
+# Disallow common non-content paths
+Disallow: /assets/
