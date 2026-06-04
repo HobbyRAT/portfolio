@@ -10,798 +10,380 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-primary: #0D0D0D;
-      --bg-secondary: #1A1A1A;
-      --bg-tertiary: #111111;
-      --bg-card: #141414;
-      --text-primary: #FFFFFF;
-      --text-secondary: #C77DFF;
-      --text-muted: #888888;
-      --accent: #8E3CFF;
-      --accent-dim: #6A2C91;
-      --accent-light: #C77DFF;
-      --accent-glow: rgba(142, 60, 255, 0.15);
-      --accent-glow-strong: rgba(142, 60, 255, 0.4);
-      --border: #2a2a2a;
-      --border-light: #333333;
-      --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --section-padding: 8rem 2rem;
-      --container-max: 1200px;
-    }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html.lenis, html.lenis body { height: auto; }
-    .lenis.lenis-smooth { scroll-behavior: auto !important; }
-    html { scroll-behavior: smooth; font-size: 16px; cursor: crosshair; }
-    body {
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    ::selection { background: var(--accent); color: var(--text-primary); }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg-primary); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
-    a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
-    img { max-width: 100%; display: block; }
-
-    /* CUSTOM CURSOR */
-    .cursor {
-      width: 20px; height: 20px; border: 2px solid var(--accent-light);
-      border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999;
-      transition: transform 0.1s ease, background 0.1s ease;
-      mix-blend-mode: difference;
-    }
-    .cursor.active { transform: scale(2); background: var(--accent-glow); }
-    .cursor-trail {
-      width: 6px; height: 6px; background: var(--accent-light);
-      border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998;
-      opacity: 0.5; transition: transform 0.15s ease;
-    }
+    :root{--bg:#0D0D0D;--bg2:#1A1A1A;--bg3:#111;--card:#141414;--txt:#FFF;--txt2:#C77DFF;--muted:#888;--acc:#8E3CFF;--acc2:#6A2C91;--acc3:#C77DFF;--glow:rgba(142,60,255,.15);--glow2:rgba(142,60,255,.35);--brd:#222;--m:'JetBrains Mono',monospace;--s:'Inter',sans-serif;--tr:.3s cubic-bezier(.4,0,.2,1);--p:6rem 2rem}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{background:var(--bg);color:var(--txt);font-family:var(--s);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--acc);color:var(--txt)}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--acc);border-radius:2px}
+    a{color:inherit;text-decoration:none}
+    ul{list-style:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+    .sl{font-family:var(--m);font-size:.75rem;color:var(--acc3);text-transform:uppercase;letter-spacing:.2em;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+    .sl::before{content:'';display:block;width:2rem;height:1px;background:var(--acc3)}
+    .st{font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.1;margin-bottom:1.5rem}
+    .ss{font-size:1.1rem;color:var(--muted);max-width:600px;line-height:1.7}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 1.75rem;font-family:var(--m);font-size:.85rem;font-weight:500;border:1px solid var(--acc);background:transparent;color:var(--acc3);cursor:pointer;transition:var(--tr);text-transform:uppercase;letter-spacing:.05em}
+    .btn:hover{background:var(--acc);color:var(--txt);box-shadow:0 0 30px var(--glow2)}
+    .bo{border-color:var(--brd);color:var(--muted)}
+    .bo:hover{border-color:var(--acc);color:var(--acc3);background:transparent;box-shadow:none}
+    .fi{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+    .fi.v{opacity:1;transform:translateY(0)}
 
     /* SCANLINES */
-    .scanlines {
-      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 2px);
-    }
-
-    /* NOISE OVERLAY */
-    .noise {
-      position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 256px 256px;
-    }
+    .scan{position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,.04) 0px,rgba(0,0,0,.04) 1px,transparent 1px,transparent 3px)}
 
     /* PARTICLES */
-    #particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .particle {
-      position: absolute; border-radius: 50%;
-      background: var(--accent-light);
-      opacity: 0;
-      animation: float-particle linear infinite;
-      box-shadow: 0 0 6px var(--accent-glow-strong);
-    }
-    @keyframes float-particle {
-      0% { opacity: 0; transform: translateY(100vh) scale(0); }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.4; }
-      100% { opacity: 0; transform: translateY(-10vh) scale(1); }
-    }
+    .parts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .part{position:absolute;border-radius:50%;background:var(--acc3);animation:fp linear infinite}
+    @keyframes fp{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.7}90%{opacity:.3}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
 
     /* GLITCH */
-    .glitch { position: relative; }
-    .glitch::before, .glitch::after {
-      content: attr(data-text);
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: var(--bg-primary);
-      opacity: 0;
-    }
-    .glitch:hover::before {
-      left: 3px; text-shadow: -3px 0 #ff00c1;
-      clip-path: inset(20% 0 60% 0);
-      animation: glitch-anim 0.3s infinite linear alternate-reverse;
-      opacity: 0.8;
-    }
-    .glitch:hover::after {
-      left: -3px; text-shadow: -3px 0 #00fff9;
-      clip-path: inset(60% 0 20% 0);
-      animation: glitch-anim2 0.3s infinite linear alternate-reverse;
-      opacity: 0.8;
-    }
-    @keyframes glitch-anim {
-      0% { clip-path: inset(10% 0 80% 0); }
-      20% { clip-path: inset(60% 0 10% 0); }
-      40% { clip-path: inset(30% 0 50% 0); }
-      60% { clip-path: inset(80% 0 5% 0); }
-      80% { clip-path: inset(20% 0 60% 0); }
-      100% { clip-path: inset(50% 0 30% 0); }
-    }
-    @keyframes glitch-anim2 {
-      0% { clip-path: inset(70% 0 10% 0); }
-      20% { clip-path: inset(10% 0 70% 0); }
-      40% { clip-path: inset(50% 0 30% 0); }
-      60% { clip-path: inset(20% 0 60% 0); }
-      80% { clip-path: inset(80% 0 5% 0); }
-      100% { clip-path: inset(30% 0 50% 0); }
-    }
-
-    /* UTILITY */
-    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 2rem; }
-    .section-label {
-      font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-light);
-      text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 0.75rem;
-    }
-    .section-label::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent-light); }
-    .section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; }
-    .section-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; line-height: 1.7; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.875rem 1.75rem;
-      font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500;
-      border: 1px solid var(--accent); background: transparent; color: var(--accent-light);
-      cursor: pointer; transition: var(--transition);
-      text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .btn:hover { background: var(--accent); color: var(--text-primary); box-shadow: 0 0 30px var(--accent-glow-strong); }
-    .btn-outline { border-color: var(--border-light); color: var(--text-muted); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent-light); background: transparent; box-shadow: none; }
-    .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* HOVER GLOW TRACKER */
-    .glow-tracker {
-      position: fixed; width: 400px; height: 400px; border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-      pointer-events: none; z-index: -1; opacity: 0;
-      transform: translate(-50%, -50%); transition: opacity 0.3s ease;
-    }
-    body:hover .glow-tracker { opacity: 1; }
+    .glitch{position:relative}
+    .glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;background:var(--bg);opacity:0;pointer-events:none}
+    .glitch:hover::before{left:3px;text-shadow:-3px 0 #ff00c1;clip-path:inset(20% 0 60% 0);animation:ga .3s infinite linear alternate-reverse;opacity:.8}
+    .glitch:hover::after{left:-3px;text-shadow:-3px 0 #00fff9;clip-path:inset(60% 0 20% 0);animation:ga2 .3s infinite linear alternate-reverse;opacity:.8}
+    @keyframes ga{0%{clip-path:inset(10% 0 80% 0)}20%{clip-path:inset(60% 0 10% 0)}40%{clip-path:inset(30% 0 50% 0)}60%{clip-path:inset(80% 0 5% 0)}80%{clip-path:inset(20% 0 60% 0)}100%{clip-path:inset(50% 0 30% 0)}}
+    @keyframes ga2{0%{clip-path:inset(70% 0 10% 0)}20%{clip-path:inset(10% 0 70% 0)}40%{clip-path:inset(50% 0 30% 0)}60%{clip-path:inset(20% 0 60% 0)}80%{clip-path:inset(80% 0 5% 0)}100%{clip-path:inset(30% 0 50% 0)}}
 
     /* NAV */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 1.5rem 2rem;
-      display: flex; justify-content: space-between; align-items: center;
-      transition: var(--transition);
-    }
-    .nav.scrolled {
-      background: rgba(13, 13, 13, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
-    .nav-logo img { height: 32px; width: auto; }
-    .nav-logo-text { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; }
-    .nav-logo-text span { color: var(--accent-light); }
-    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-    .nav-links a {
-      font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.1em; transition: var(--transition); position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
-      background: var(--accent-light); transition: var(--transition);
-    }
-    .nav-links a:hover { color: var(--accent-light); text-shadow: 0 0 10px var(--accent-glow-strong); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta {
-      padding: 0.6rem 1.25rem !important; font-size: 0.75rem !important;
-      border: 1px solid var(--accent) !important; color: var(--accent-light) !important;
-    }
-    .nav-cta:hover { background: var(--accent) !important; color: var(--text-primary) !important; box-shadow: 0 0 20px var(--accent-glow-strong) !important; }
-    .nav-cta::after { display: none !important; }
-    .mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
-    .mobile-toggle span { width: 24px; height: 2px; background: var(--text-primary); transition: var(--transition); }
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:var(--tr)}
+    .nav.sc{background:rgba(13,13,13,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);padding:1rem 2rem}
+    .nl{display:flex;align-items:center;gap:.75rem}
+    .nl img{height:32px;width:auto}
+    .nl span{color:var(--acc3)}
+    .nk{display:flex;gap:2.5rem;align-items:center}
+    .nk a{font-family:var(--m);font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;transition:var(--tr);position:relative}
+    .nk a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--acc3);transition:var(--tr)}
+    .nk a:hover{color:var(--acc3);text-shadow:0 0 10px var(--glow2)}
+    .nk a:hover::after{width:100%}
+    .nk .nc{padding:.6rem 1.25rem!important;font-size:.75rem!important;border:1px solid var(--acc)!important;color:var(--acc3)!important}
+    .nk .nc:hover{background:var(--acc)!important;color:var(--txt)!important;box-shadow:0 0 20px var(--glow2)!important}
+    .nk .nc::after{display:none!important}
+    .mt{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+    .mt span{width:24px;height:2px;background:var(--txt);transition:var(--tr)}
 
     /* HERO */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center; position: relative;
-      padding: var(--section-padding); overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent),
-        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(142, 60, 255, 0.1), transparent);
-    }
-    .hero-grid {
-      position: absolute; inset: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(142, 60, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(142, 60, 255, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: grid-move 20s linear infinite;
-    }
-    @keyframes grid-move {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(60px, 60px); }
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
-    .hero-tag {
-      font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-light);
-      margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem;
-    }
-    .hero-tag::before { content: '[>]_'; color: var(--accent); animation: blink 1s step-end infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    .hero-title {
-      font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 700;
-      line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: -0.02em;
-    }
-    .hero-title .highlight {
-      color: var(--accent-light);
-      text-shadow: 0 0 40px var(--accent-glow-strong), 0 0 80px var(--accent-glow);
-    }
-    .hero-desc { font-size: 1.15rem; color: var(--text-muted); max-width: 550px; line-height: 1.8; margin-bottom: 2.5rem; }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .hero-stats {
-      display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-    .hero-stat-value {
-      font-family: var(--font-mono); font-size: 1.75rem; font-weight: 700;
-      color: var(--accent-light); text-shadow: 0 0 20px var(--accent-glow-strong);
-    }
-    .hero-stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }
-    .scroll-indicator {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      color: var(--text-muted); font-family: var(--font-mono); font-size: 0.7rem;
-      text-transform: uppercase; letter-spacing: 0.2em; animation: bounce 2s infinite;
-    }
-    .scroll-indicator::after { content: ''; width: 1px; height: 2rem; background: linear-gradient(to bottom, var(--accent), transparent); }
-    @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+    .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:var(--p);overflow:hidden}
+    .hb{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% -20%,var(--glow),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(142,60,255,.08),transparent)}
+    .hg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(142,60,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(142,60,255,.03) 1px,transparent 1px);background-size:60px 60px;animation:gm 20s linear infinite}
+    @keyframes gm{0%{transform:translate(0,0)}100%{transform:translate(60px,60px)}}
+    .hc{position:relative;z-index:1;max-width:800px}
+    .ht{font-family:var(--m);font-size:.8rem;color:var(--acc3);margin-bottom:2rem;display:flex;align-items:center;gap:.75rem}
+    .ht::before{content:'[>]_';color:var(--acc);animation:blink 1s step-end infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .hn{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.05;margin-bottom:1.5rem;letter-spacing:-.02em}
+    .hn .hl{color:var(--acc3);text-shadow:0 0 40px var(--glow2),0 0 80px var(--glow)}
+    .hd{font-size:1.15rem;color:var(--muted);max-width:550px;line-height:1.8;margin-bottom:2.5rem}
+    .ha{display:flex;gap:1rem;flex-wrap:wrap}
+    .hs{display:flex;gap:3rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--brd)}
+    .hv{font-family:var(--m);font-size:1.75rem;font-weight:700;color:var(--acc3);text-shadow:0 0 20px var(--glow2)}
+    .hl2{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.25rem}
+    .si{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--muted);font-family:var(--m);font-size:.7rem;text-transform:uppercase;letter-spacing:.2em;animation:bounce 2s infinite}
+    .si::after{content:'';width:1px;height:2rem;background:linear-gradient(to bottom,var(--acc),transparent)}
+    @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
     /* ABOUT */
-    .about { padding: var(--section-padding); background: var(--bg-secondary); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .about-text p { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.8; }
-    .about-skills { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .skill-item {
-      padding: 1.25rem; background: var(--bg-card); border: 1px solid var(--border);
-      transition: var(--transition); position: relative; overflow: hidden;
-    }
-    .skill-item::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
-      background-size: 200% 100%;
-      transform: scaleX(0); transition: var(--transition);
-    }
-    .skill-item:hover { border-color: var(--accent); box-shadow: 0 0 30px var(--accent-glow), inset 0 0 30px rgba(142, 60, 255, 0.05); transform: translateY(-2px); }
-    .skill-item:hover::before { transform: scaleX(1); animation: shimmer 2s linear infinite; }
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    .skill-item-icon { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-light); margin-bottom: 0.75rem; }
-    .skill-item-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
-    .skill-item-desc { font-size: 0.8rem; color: var(--text-muted); }
+    .about{padding:var(--p);background:var(--bg2)}
+    .ag{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+    .at p{color:var(--muted);margin-bottom:1.5rem;line-height:1.8}
+    .ask{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .ski{padding:1.25rem;background:var(--card);border:1px solid var(--brd);transition:var(--tr);position:relative;overflow:hidden}
+    .ski::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc3));background-size:200% 100%;transform:scaleX(0);transition:var(--tr)}
+    .ski:hover{border-color:var(--acc);box-shadow:0 0 25px var(--glow),inset 0 0 25px rgba(142,60,255,.05);transform:translateY(-2px)}
+    .ski:hover::before{transform:scaleX(1);animation:shimmer 2s linear infinite}
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .skn{font-family:var(--m);font-size:.75rem;color:var(--acc3);margin-bottom:.75rem}
+    .skt{font-weight:600;font-size:.95rem;margin-bottom:.25rem}
+    .skd{font-size:.8rem;color:var(--muted)}
 
     /* SERVICES */
-    .services { padding: var(--section-padding); }
-    .services-header { text-align: center; margin-bottom: 4rem; }
-    .services-header .section-subtitle { margin: 0 auto; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .service-card {
-      padding: 2.5rem; background: var(--bg-card); border: 1px solid var(--border);
-      transition: var(--transition); position: relative; overflow: hidden;
-    }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light));
-      transform: scaleX(0); transition: var(--transition);
-    }
-    .service-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% 50%, var(--accent-glow), transparent 70%);
-      opacity: 0; transition: var(--transition);
-    }
-    .service-card:hover { border-color: var(--accent); transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 60px rgba(142, 60, 255, 0.2); }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover::after { opacity: 1; }
-    .service-card > * { position: relative; z-index: 1; }
-    .service-number { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-light); margin-bottom: 1.5rem; }
-    .service-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
-    .service-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
-    .service-price { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-light); }
-    .service-price span { color: var(--text-muted); font-size: 0.75rem; }
+    .services{padding:var(--p)}
+    .sh{text-align:center;margin-bottom:4rem}
+    .sh .ss{margin:0 auto}
+    .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .sc{padding:2.5rem;background:var(--card);border:1px solid var(--brd);transition:var(--tr);position:relative;overflow:hidden}
+    .sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc3));transform:scaleX(0);transition:var(--tr)}
+    .sc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--glow),transparent 70%);opacity:0;transition:var(--tr)}
+    .sc:hover{border-color:var(--acc);transform:translateY(-5px) scale(1.02);box-shadow:0 20px 50px rgba(142,60,255,.2)}
+    .sc:hover::before{transform:scaleX(1)}
+    .sc:hover::after{opacity:1}
+    .sc>*{position:relative;z-index:1}
+    .snum{font-family:var(--m);font-size:.7rem;color:var(--acc3);margin-bottom:1.5rem}
+    .stitle{font-size:1.25rem;font-weight:600;margin-bottom:.75rem}
+    .sdesc{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+    .spr{font-family:var(--m);font-size:.85rem;color:var(--acc3)}
+    .spr span{color:var(--muted);font-size:.75rem}
 
     /* PROJECTS */
-    .projects { padding: var(--section-padding); background: var(--bg-secondary); }
-    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
-    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .project-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      overflow: hidden; transition: var(--transition); position: relative;
-    }
-    .project-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(142, 60, 255, 0.05) 50%, transparent 60%);
-      background-size: 200% 200%; opacity: 0; transition: var(--transition);
-      pointer-events: none; z-index: 2;
-    }
-    .project-card:hover { border-color: var(--accent); transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 60px rgba(142, 60, 255, 0.2); }
-    .project-card:hover::before { opacity: 1; animation: shine 1.5s ease infinite; }
-    @keyframes shine { 0% { background-position: -200% -200%; } 100% { background-position: 200% 200%; } }
-    .project-image {
-      height: 200px; background: var(--bg-tertiary);
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .project-image img {
-      width: 100%; height: 100%; object-fit: cover; opacity: 0.6;
-      transition: var(--transition); filter: grayscale(50%);
-    }
-    .project-card:hover .project-image img { opacity: 1; transform: scale(1.08); filter: grayscale(0%); }
-    .project-image-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 30%, var(--bg-card));
-      pointer-events: none;
-    }
-    .project-content { padding: 2rem; }
-    .project-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .project-tag {
-      font-family: var(--font-mono); font-size: 0.65rem; padding: 0.25rem 0.6rem;
-      background: rgba(142, 60, 255, 0.1); color: var(--accent-light);
-      border: 1px solid rgba(142, 60, 255, 0.2); text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .project-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .project-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem; }
-    .project-link {
-      font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-light);
-      display: inline-flex; align-items: center; gap: 0.5rem; transition: var(--transition);
-    }
-    .project-link:hover { gap: 0.75rem; text-shadow: 0 0 15px var(--accent-glow-strong); }
+    .projects{padding:var(--p);background:var(--bg2)}
+    .ph{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+    .pg{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+    .pc{background:var(--card);border:1px solid var(--brd);overflow:hidden;transition:var(--tr);position:relative}
+    .pc::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,transparent 40%,rgba(142,60,255,.05) 50%,transparent 60%);background-size:200% 200%;opacity:0;transition:var(--tr);pointer-events:none;z-index:2}
+    .pc:hover{border-color:var(--acc);transform:translateY(-5px) scale(1.02);box-shadow:0 20px 50px rgba(142,60,255,.2)}
+    .pc:hover::before{opacity:1;animation:shine 1.5s ease infinite}
+    @keyframes shine{0%{background-position:-200% -200%}100%{background-position:200% 200%}}
+    .pi{height:200px;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .pi img{width:100%;height:100%;object-fit:cover;opacity:.5;transition:var(--tr);filter:grayscale(40%)}
+    .pc:hover .pi img{opacity:1;transform:scale(1.05);filter:grayscale(0%)}
+    .pio{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,var(--card));pointer-events:none}
+    .pco{padding:2rem}
+    .pt{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+    .ptag{font-family:var(--m);font-size:.65rem;padding:.25rem .6rem;background:rgba(142,60,255,.1);color:var(--acc3);border:1px solid rgba(142,60,255,.2);text-transform:uppercase;letter-spacing:.05em}
+    .ptitle{font-size:1.2rem;font-weight:600;margin-bottom:.5rem}
+    .pdesc{font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+    .pl{font-family:var(--m);font-size:.8rem;color:var(--acc3);display:inline-flex;align-items:center;gap:.5rem;transition:var(--tr)}
+    .pl:hover{text-shadow:0 0 15px var(--glow2)}
 
     /* BUG BOUNTY */
-    .bugbounty { padding: var(--section-padding); position: relative; overflow: hidden; }
-    .bugbounty-bg {
-      position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse 60% 50% at 50% 50%, var(--accent-glow), transparent);
-      animation: pulse-glow 4s ease-in-out infinite;
-    }
-    @keyframes pulse-glow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
-    .bugbounty-content { position: relative; z-index: 1; text-align: center; max-width: 700px; margin: 0 auto; }
-    .bugbounty-stats { display: flex; justify-content: center; gap: 4rem; margin: 3rem 0; flex-wrap: wrap; }
-    .bb-stat-value {
-      font-family: var(--font-mono); font-size: 2.5rem; font-weight: 700;
-      color: var(--accent-light); text-shadow: 0 0 30px var(--accent-glow-strong);
-    }
-    .bb-stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
-    .bugbounty-platforms { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
-    .bb-platform {
-      font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);
-      padding: 0.75rem 1.5rem; border: 1px solid var(--border);
-      transition: var(--transition);
-    }
-    .bb-platform:hover { border-color: var(--accent); color: var(--accent-light); box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
+    .bb{padding:var(--p);position:relative;overflow:hidden}
+    .bbb{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 50%,var(--glow),transparent);animation:pulse 4s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+    .bbc{position:relative;z-index:1;text-align:center;max-width:700px;margin:0 auto}
+    .bstats{display:flex;justify-content:center;gap:4rem;margin:3rem 0;flex-wrap:wrap}
+    .bv{font-family:var(--m);font-size:2.5rem;font-weight:700;color:var(--acc3);text-shadow:0 0 30px var(--glow2)}
+    .bl{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+    .bpl{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+    .bp{font-family:var(--m);font-size:.85rem;color:var(--muted);padding:.75rem 1.5rem;border:1px solid var(--brd);transition:var(--tr)}
+    .bp:hover{border-color:var(--acc);color:var(--acc3);box-shadow:0 0 15px var(--glow);transform:translateY(-2px)}
 
     /* CONTACT */
-    .contact { padding: var(--section-padding); background: var(--bg-secondary); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-    .contact-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; }
-    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-link {
-      display: flex; align-items: center; gap: 1rem; padding: 1rem;
-      background: var(--bg-card); border: 1px solid var(--border); transition: var(--transition);
-    }
-    .contact-link:hover { border-color: var(--accent); transform: translateX(8px); }
-    .contact-link-icon { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-light); width: 2rem; text-align: center; }
-    .contact-link-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
-    .contact-link-value { font-weight: 500; }
-    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
-    .form-group label {
-      display: block; font-family: var(--font-mono); font-size: 0.75rem;
-      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
-    }
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border);
-      color: var(--text-primary); font-family: var(--font-sans); font-size: 0.95rem;
-      transition: var(--transition); outline: none;
-    }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow), inset 0 0 10px rgba(142, 60, 255, 0.05); }
-    .form-group textarea { min-height: 150px; resize: vertical; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .contact{padding:var(--p);background:var(--bg2)}
+    .cg{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+    .ct p{color:var(--muted);line-height:1.8;margin-bottom:2rem}
+    .cl{display:flex;flex-direction:column;gap:1rem}
+    .cli{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--card);border:1px solid var(--brd);transition:var(--tr)}
+    .cli:hover{border-color:var(--acc);transform:translateX(8px)}
+    .clii{font-family:var(--m);font-size:.75rem;color:var(--acc3);width:2rem;text-align:center}
+    .clil{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+    .cliv{font-weight:500}
+    .cf{display:flex;flex-direction:column;gap:1.25rem}
+    .fg label{display:block;font-family:var(--m);font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+    .fg input,.fg textarea{width:100%;padding:1rem;background:var(--card);border:1px solid var(--brd);color:var(--txt);font-family:var(--s);font-size:.95rem;transition:var(--tr);outline:none}
+    .fg input:focus,.fg textarea:focus{border-color:var(--acc);box-shadow:0 0 15px var(--glow),inset 0 0 10px rgba(142,60,255,.05)}
+    .fg textarea{min-height:120px;resize:vertical}
+    .fr{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 
     /* FOOTER */
-    .footer {
-      padding: 3rem 2rem; border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-left { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
-    .footer-left span { color: var(--accent-light); }
-    .footer-right { display: flex; gap: 2rem; }
-    .footer-right a {
-      font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.1em; transition: var(--transition);
-    }
-    .footer-right a:hover { color: var(--accent-light); }
+    .footer{padding:3rem 2rem;border-top:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .fl{font-family:var(--m);font-size:.8rem;color:var(--muted)}
+    .fl span{color:var(--acc3)}
+    .fr2{display:flex;gap:2rem}
+    .fr2 a{font-family:var(--m);font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;transition:var(--tr)}
+    .fr2 a:hover{color:var(--acc3)}
 
     /* RESPONSIVE */
-    @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 768px) {
-      :root { --section-padding: 5rem 1.5rem; }
-      .cursor, .cursor-trail, .glow-tracker { display: none; }
-      html { cursor: auto; }
-      .nav-links { display: none; }
-      .mobile-toggle { display: flex; }
-      .nav-links.active {
-        display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
-        background: rgba(13, 13, 13, 0.95); backdrop-filter: blur(20px);
-        padding: 2rem; border-bottom: 1px solid var(--border); gap: 1.5rem;
-      }
-      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .services-grid, .projects-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 2rem; flex-wrap: wrap; }
-      .hero-stat-value { font-size: 1.5rem; }
-      .bugbounty-stats { gap: 2rem; }
-      .bb-stat-value { font-size: 2rem; }
-      .form-row { grid-template-columns: 1fr; }
-      .footer { flex-direction: column; text-align: center; }
+    @media(max-width:1024px){.sg{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:768px){
+      :root{--p:4rem 1.5rem}
+      .nk{display:none}
+      .mt{display:flex}
+      .nk.active{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(13,13,13,.95);backdrop-filter:blur(20px);padding:2rem;border-bottom:1px solid var(--brd);gap:1.5rem}
+      .ag,.cg{grid-template-columns:1fr;gap:3rem}
+      .sg,.pg{grid-template-columns:1fr}
+      .hs{gap:2rem;flex-wrap:wrap}
+      .hv{font-size:1.5rem}
+      .bstats{gap:2rem}
+      .bv{font-size:2rem}
+      .fr{grid-template-columns:1fr}
+      .footer{flex-direction:column;text-align:center}
     }
-    @media (max-width: 480px) {
-      .hero-title { font-size: 2rem; }
-      .hero-actions { flex-direction: column; }
-      .btn { width: 100%; justify-content: center; }
-      .about-skills { grid-template-columns: 1fr; }
+    @media(max-width:480px){
+      .hn{font-size:1.8rem}
+      .ha{flex-direction:column}
+      .btn{width:100%;justify-content:center}
+      .ask{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
 
-  <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-trail" id="cursorTrail"></div>
+  <div class="scan"></div>
+  <div class="parts" id="parts"></div>
 
-  <!-- GLOW TRACKER -->
-  <div class="glow-tracker" id="glowTracker"></div>
-
-  <!-- SCANLINES + NOISE -->
-  <div class="scanlines"></div>
-  <div class="noise"></div>
-
-  <!-- PARTICLES -->
-  <div id="particles"></div>
-
-  <!-- NAV -->
   <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">
-      <img src="assets/graphics/simple-logo.png" alt="HOBBY" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <span class="nav-logo-text" style="display:none">HOBBY<span>_</span></span>
+    <a href="#" class="nl">
+      <img src="assets/graphics/simple-logo.png" alt="HOBBY" onerror="this.style.display='none'">
     </a>
-    <div class="nav-links" id="navLinks">
+    <div class="nk" id="nk">
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#projects">Projects</a>
-      <a href="#bugbounty">Bug Bounty</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+      <a href="#bb">Bug Bounty</a>
+      <a href="#contact" class="nc">Contact</a>
     </div>
-    <div class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="mt" id="mt" aria-label="Menu"><span></span><span></span><span></span></div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
+    <div class="hb"></div>
+    <div class="hg"></div>
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-tag">Security Researcher & Developer</div>
-        <h1 class="hero-title">
-          I find <span class="highlight glitch" data-text="vulnerabilities">vulnerabilities</span><br>
-          before attackers do
-        </h1>
-        <p class="hero-desc">
-          Penetration tester, bug bounty hunter, and Python developer.
-          I help companies secure their infrastructure and build
-          security tools that actually work.
-        </p>
-        <div class="hero-actions">
+      <div class="hc">
+        <div class="ht">Security Researcher & Developer</div>
+        <h1 class="hn">I find <span class="hl glitch" data-text="vulnerabilities">vulnerabilities</span><br>before attackers do</h1>
+        <p class="hd">Penetration tester, bug bounty hunter, and Python developer. I help companies secure their infrastructure and build security tools that actually work.</p>
+        <div class="ha">
           <a href="#contact" class="btn">Get In Touch</a>
-          <a href="#projects" class="btn btn-outline">View Projects</a>
+          <a href="#projects" class="btn bo">View Projects</a>
         </div>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="hero-stat-value">50+</div><div class="hero-stat-label">Bugs Found</div></div>
-          <div class="hero-stat"><div class="hero-stat-value">$10K+</div><div class="hero-stat-label">Bounties Earned</div></div>
-          <div class="hero-stat"><div class="hero-stat-value">100+</div><div class="hero-stat-label">Pentests Done</div></div>
+        <div class="hs">
+          <div><div class="hv">50+</div><div class="hl2">Bugs Found</div></div>
+          <div><div class="hv">$10K+</div><div class="hl2">Bounties Earned</div></div>
+          <div><div class="hv">100+</div><div class="hl2">Pentests Done</div></div>
         </div>
       </div>
     </div>
-    <div class="scroll-indicator">Scroll</div>
+    <div class="si">Scroll</div>
   </section>
 
-  <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container">
-      <div class="about-grid">
-        <div class="about-text fade-in">
-          <div class="section-label">About</div>
-          <h2 class="section-title">Security is not a product,<br>it's a process</h2>
+      <div class="ag">
+        <div class="at fi">
+          <div class="sl">About</div>
+          <h2 class="st">Security is not a product,<br>it's a process</h2>
           <p>I'm a security researcher and penetration tester with expertise in web application security, network pentesting, and OSINT. I've helped companies of all sizes identify and fix critical vulnerabilities before they could be exploited.</p>
           <p>When I'm not hunting bugs, I build security tools in Python, contribute to open source, and share knowledge through writeups and tutorials.</p>
         </div>
-        <div class="about-skills fade-in">
-          <div class="skill-item">
-            <div class="skill-item-icon">[01]</div>
-            <div class="skill-item-title">Web Security</div>
-            <div class="skill-item-desc">OWASP Top 10, API testing, Auth bypass</div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-item-icon">[02]</div>
-            <div class="skill-item-title">Penetration Testing</div>
-            <div class="skill-item-desc">Network, AD, Cloud, Mobile</div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-item-icon">[03]</div>
-            <div class="skill-item-title">OSINT</div>
-            <div class="skill-item-desc">Recon, profiling, dark web monitoring</div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-item-icon">[04]</div>
-            <div class="skill-item-title">Development</div>
-            <div class="skill-item-desc">Python, PyQt6, Security tools</div>
-          </div>
+        <div class="ask fi">
+          <div class="ski"><div class="skn">[01]</div><div class="skt">Web Security</div><div class="skd">OWASP Top 10, API testing, Auth bypass</div></div>
+          <div class="ski"><div class="skn">[02]</div><div class="skt">Penetration Testing</div><div class="skd">Network, AD, Cloud, Mobile</div></div>
+          <div class="ski"><div class="skn">[03]</div><div class="skt">OSINT</div><div class="skd">Recon, profiling, dark web monitoring</div></div>
+          <div class="ski"><div class="skn">[04]</div><div class="skt">Development</div><div class="skd">Python, PyQt6, Security tools</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
   <section class="services" id="services">
     <div class="container">
-      <div class="services-header fade-in">
-        <div class="section-label">Services</div>
-        <h2 class="section-title">What I can do for you</h2>
-        <p class="section-subtitle">From quick security assessments to full penetration tests — I offer tailored solutions for your security needs.</p>
+      <div class="sh fi">
+        <div class="sl">Services</div>
+        <h2 class="st">What I can do for you</h2>
+        <p class="ss">From quick security assessments to full penetration tests — I offer tailored solutions for your security needs.</p>
       </div>
-      <div class="services-grid">
-        <div class="service-card fade-in">
-          <div class="service-number">01</div>
-          <h3 class="service-title">Web Application Pentest</h3>
-          <p class="service-desc">Comprehensive testing of your web applications including OWASP Top 10, API endpoints, authentication, and business logic.</p>
-          <div class="service-price">from <span>&euro;</span>1,500</div>
-        </div>
-        <div class="service-card fade-in">
-          <div class="service-number">02</div>
-          <h3 class="service-title">Network Pentest</h3>
-          <p class="service-desc">Internal and external network assessment. Identify misconfigurations, weak points, and attack paths.</p>
-          <div class="service-price">from <span>&euro;</span>3,000</div>
-        </div>
-        <div class="service-card fade-in">
-          <div class="service-number">03</div>
-          <h3 class="service-title">Security Audit</h3>
-          <p class="service-desc">Quick assessment of your security posture. Vulnerability scanning, configuration review, and recommendations.</p>
-          <div class="service-price">from <span>&euro;</span>500</div>
-        </div>
-        <div class="service-card fade-in">
-          <div class="service-number">04</div>
-          <h3 class="service-title">Custom Security Tools</h3>
-          <p class="service-desc">Custom Python tools for automation, OSINT, scanning, or any security workflow you need.</p>
-          <div class="service-price">from <span>&euro;</span>500</div>
-        </div>
-        <div class="service-card fade-in">
-          <div class="service-number">05</div>
-          <h3 class="service-title">OSINT Research</h3>
-          <p class="service-desc">Open source intelligence gathering for due diligence, threat intelligence, or investigations.</p>
-          <div class="service-price">from <span>&euro;</span>200</div>
-        </div>
-        <div class="service-card fade-in">
-          <div class="service-number">06</div>
-          <h3 class="service-title">Security Training</h3>
-          <p class="service-desc">Developer security training, secure coding workshops, and security awareness sessions.</p>
-          <div class="service-price"><span>&euro;</span>500<span>/day</span></div>
-        </div>
+      <div class="sg">
+        <div class="sc fi"><div class="snum">01</div><h3 class="stitle">Web Application Pentest</h3><p class="sdesc">Comprehensive testing including OWASP Top 10, API endpoints, authentication, and business logic.</p><div class="spr">from <span>&euro;</span>1,500</div></div>
+        <div class="sc fi"><div class="snum">02</div><h3 class="stitle">Network Pentest</h3><p class="sdesc">Internal and external network assessment. Identify misconfigurations, weak points, and attack paths.</p><div class="spr">from <span>&euro;</span>3,000</div></div>
+        <div class="sc fi"><div class="snum">03</div><h3 class="stitle">Security Audit</h3><p class="sdesc">Quick assessment of your security posture. Vulnerability scanning and configuration review.</p><div class="spr">from <span>&euro;</span>500</div></div>
+        <div class="sc fi"><div class="snum">04</div><h3 class="stitle">Custom Security Tools</h3><p class="sdesc">Custom Python tools for automation, OSINT, scanning, or any security workflow.</p><div class="spr">from <span>&euro;</span>500</div></div>
+        <div class="sc fi"><div class="snum">05</div><h3 class="stitle">OSINT Research</h3><p class="sdesc">Open source intelligence gathering for due diligence, threat intelligence, or investigations.</p><div class="spr">from <span>&euro;</span>200</div></div>
+        <div class="sc fi"><div class="snum">06</div><h3 class="stitle">Security Training</h3><p class="sdesc">Developer security training, secure coding workshops, and awareness sessions.</p><div class="spr"><span>&euro;</span>500<span>/day</span></div></div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section class="projects" id="projects">
     <div class="container">
-      <div class="projects-header fade-in">
-        <div>
-          <div class="section-label">Projects</div>
-          <h2 class="section-title">Featured Work</h2>
-        </div>
-        <a href="https://github.com/HobbyRAT" target="_blank" class="btn btn-outline">View All</a>
+      <div class="ph fi">
+        <div><div class="sl">Projects</div><h2 class="st">Featured Work</h2></div>
+        <a href="https://github.com/HobbyRAT" target="_blank" class="btn bo">View All</a>
       </div>
-      <div class="projects-grid">
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="assets/graphics/icon-circle.png" alt="HobbyRAT" onerror="this.style.display='none'">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags"><span class="project-tag">PyQt6</span><span class="project-tag">Python</span><span class="project-tag">C2</span></div>
-            <h3 class="project-title">HobbyRAT — C2 Dashboard</h3>
-            <p class="project-desc">Full-featured command & control dashboard built with PyQt6. 28 tabs, terminal theme, real-time data, OSINT integration.</p>
-            <a href="#" class="project-link">View Project [-&gt;]</a>
-          </div>
+      <div class="pg">
+        <div class="pc fi">
+          <div class="pi"><img src="assets/graphics/icon-circle.png" alt="HobbyRAT" onerror="this.style.display='none'"><div class="pio"></div></div>
+          <div class="pco"><div class="pt"><span class="ptag">PyQt6</span><span class="ptag">Python</span><span class="ptag">C2</span></div><h3 class="ptitle">HobbyRAT — C2 Dashboard</h3><p class="pdesc">Full-featured command & control dashboard built with PyQt6. 28 tabs, terminal theme, real-time data.</p><a href="#" class="pl">View Project [-&gt;]</a></div>
         </div>
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="assets/graphics/emblem-patch-logo.png" alt="HobbyFinder" onerror="this.style.display='none'">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags"><span class="project-tag">OSINT</span><span class="project-tag">Python</span><span class="project-tag">Proxy</span></div>
-            <h3 class="project-title">HobbyFinder — OSINT Tool</h3>
-            <p class="project-desc">Advanced OSINT reconnaissance tool for DE/AT/CH targets. Multi-source aggregation, proxy support, automated reporting.</p>
-            <a href="#" class="project-link">View Project [-&gt;]</a>
-          </div>
+        <div class="pc fi">
+          <div class="pi"><img src="assets/graphics/emblem-patch-logo.png" alt="HobbyFinder" onerror="this.style.display='none'"><div class="pio"></div></div>
+          <div class="pco"><div class="pt"><span class="ptag">OSINT</span><span class="ptag">Python</span><span class="ptag">Proxy</span></div><h3 class="ptitle">HobbyFinder — OSINT Tool</h3><p class="pdesc">Advanced OSINT reconnaissance for DE/AT/CH. Multi-source aggregation, proxy support, automated reporting.</p><a href="#" class="pl">View Project [-&gt;]</a></div>
         </div>
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="assets/graphics/purp-logo-default.png" alt="iBot" onerror="this.style.display='none'">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags"><span class="project-tag">Instagram</span><span class="project-tag">Automation</span><span class="project-tag">Tor</span></div>
-            <h3 class="project-title">iBot — Instagram Toolkit</h3>
-            <p class="project-desc">14-module Instagram automation suite with Tor rotation, SMS verification, warming, and engagement tools.</p>
-            <a href="#" class="project-link">View Project [-&gt;]</a>
-          </div>
+        <div class="pc fi">
+          <div class="pi"><img src="assets/graphics/purp-logo-default.png" alt="iBot" onerror="this.style.display='none'"><div class="pio"></div></div>
+          <div class="pco"><div class="pt"><span class="ptag">Instagram</span><span class="ptag">Automation</span><span class="ptag">Tor</span></div><h3 class="ptitle">iBot — Instagram Toolkit</h3><p class="pdesc">14-module suite with Tor rotation, SMS verification, warming, and engagement tools.</p><a href="#" class="pl">View Project [-&gt;]</a></div>
         </div>
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="assets/graphics/icon-square.png" alt="Recon Pipeline" onerror="this.style.display='none'">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags"><span class="project-tag">Recon</span><span class="project-tag">Automation</span><span class="project-tag">Bash</span></div>
-            <h3 class="project-title">Recon Pipeline</h3>
-            <p class="project-desc">Automated reconnaissance pipeline for bug bounty and pentesting. Subdomain enum, port scan, vulnerability detection.</p>
-            <a href="#" class="project-link">View Project [-&gt;]</a>
-          </div>
+        <div class="pc fi">
+          <div class="pi"><img src="assets/graphics/icon-square.png" alt="Recon" onerror="this.style.display='none'"><div class="pio"></div></div>
+          <div class="pco"><div class="pt"><span class="ptag">Recon</span><span class="ptag">Automation</span><span class="ptag">Bash</span></div><h3 class="ptitle">Recon Pipeline</h3><p class="pdesc">Automated reconnaissance pipeline for bug bounty. Subdomain enum, port scan, vuln detection.</p><a href="#" class="pl">View Project [-&gt;]</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BUG BOUNTY -->
-  <section class="bugbounty" id="bugbounty">
-    <div class="bugbounty-bg"></div>
+  <section class="bb" id="bb">
+    <div class="bbb"></div>
     <div class="container">
-      <div class="bugbounty-content fade-in">
-        <div class="section-label">Bug Bounty</div>
-        <h2 class="section-title">Vulnerability Research</h2>
-        <p class="section-subtitle" style="margin:0 auto">Active security researcher on multiple platforms. Specialized in web application vulnerabilities, authentication bypass, and SSRF.</p>
-        <div class="bugbounty-stats">
-          <div class="bb-stat"><div class="bb-stat-value">50+</div><div class="bb-stat-label">Valid Reports</div></div>
-          <div class="bb-stat"><div class="bb-stat-value">15+</div><div class="bb-stat-label">Critical/High</div></div>
-          <div class="bb-stat"><div class="bb-stat-value">$10K+</div><div class="bb-stat-label">Total Bounties</div></div>
+      <div class="bbc fi">
+        <div class="sl">Bug Bounty</div>
+        <h2 class="st">Vulnerability Research</h2>
+        <p class="ss" style="margin:0 auto">Active security researcher on multiple platforms. Specialized in web application vulnerabilities, authentication bypass, and SSRF.</p>
+        <div class="bstats">
+          <div><div class="bv">50+</div><div class="bl">Valid Reports</div></div>
+          <div><div class="bv">15+</div><div class="bl">Critical/High</div></div>
+          <div><div class="bv">$10K+</div><div class="bl">Total Bounties</div></div>
         </div>
-        <div class="bugbounty-platforms">
-          <a href="https://hackerone.com/" target="_blank" class="bb-platform">HackerOne</a>
-          <a href="https://bugcrowd.com/" target="_blank" class="bb-platform">Bugcrowd</a>
-          <a href="https://intigriti.com/" target="_blank" class="bb-platform">Intigriti</a>
-          <a href="https://openbugbounty.org/" target="_blank" class="bb-platform">OpenBugBounty</a>
+        <div class="bpl">
+          <a href="https://hackerone.com/" target="_blank" class="bp">HackerOne</a>
+          <a href="https://bugcrowd.com/" target="_blank" class="bp">Bugcrowd</a>
+          <a href="https://intigriti.com/" target="_blank" class="bp">Intigriti</a>
+          <a href="https://openbugbounty.org/" target="_blank" class="bp">OpenBugBounty</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="container">
-      <div class="contact-grid">
-        <div class="contact-text fade-in">
-          <div class="section-label">Contact</div>
-          <h2 class="section-title">Let's work together</h2>
+      <div class="cg">
+        <div class="ct fi">
+          <div class="sl">Contact</div>
+          <h2 class="st">Let's work together</h2>
           <p>Need a penetration test? Want to secure your infrastructure? Or just want to discuss security? Drop me a message.</p>
-          <div class="contact-links">
-            <a href="mailto:your@email.com" class="contact-link">
-              <span class="contact-link-icon">[@]</span>
-              <div><div class="contact-link-label">Email</div><div class="contact-link-value">your@email.com</div></div>
-            </a>
-            <a href="https://github.com/HobbyRAT" target="_blank" class="contact-link">
-              <span class="contact-link-icon">[G]</span>
-              <div><div class="contact-link-label">GitHub</div><div class="contact-link-value">github.com/HobbyRAT</div></div>
-            </a>
-            <a href="https://linkedin.com/in/" target="_blank" class="contact-link">
-              <span class="contact-link-icon">[L]</span>
-              <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">linkedin.com/in/yourname</div></div>
-            </a>
-            <a href="https://hackerone.com/" target="_blank" class="contact-link">
-              <span class="contact-link-icon">[H]</span>
-              <div><div class="contact-link-label">HackerOne</div><div class="contact-link-value">hackerone.com/yourname</div></div>
-            </a>
+          <div class="cl">
+            <a href="mailto:your@email.com" class="cli"><span class="clii">[@]</span><div><div class="clil">Email</div><div class="cliv">your@email.com</div></div></a>
+            <a href="https://github.com/HobbyRAT" target="_blank" class="cli"><span class="clii">[G]</span><div><div class="clil">GitHub</div><div class="cliv">github.com/HobbyRAT</div></div></a>
+            <a href="https://linkedin.com/in/" target="_blank" class="cli"><span class="clii">[L]</span><div><div class="clil">LinkedIn</div><div class="cliv">linkedin.com/in/yourname</div></div></a>
+            <a href="https://hackerone.com/" target="_blank" class="cli"><span class="clii">[H]</span><div><div class="clil">HackerOne</div><div class="cliv">hackerone.com/yourname</div></div></a>
           </div>
         </div>
-        <form class="contact-form fade-in" action="#" method="POST">
-          <div class="form-row">
-            <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="John Doe" required></div>
-            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="john@example.com" required></div>
-          </div>
-          <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" placeholder="Pentest inquiry"></div>
-          <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea></div>
+        <form class="cf fi" action="#" method="POST">
+          <div class="fr"><div class="fg"><label for="name">Name</label><input type="text" id="name" placeholder="John Doe" required></div><div class="fg"><label for="email">Email</label><input type="email" id="email" placeholder="john@example.com" required></div></div>
+          <div class="fg"><label for="subject">Subject</label><input type="text" id="subject" placeholder="Pentest inquiry"></div>
+          <div class="fg"><label for="message">Message</label><textarea id="message" placeholder="Tell me about your project..." required></textarea></div>
           <button type="submit" class="btn" style="align-self:flex-start">Send Message [-&gt;]</button>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-left">&copy; 2025 <span>HOBBY</span> — All rights reserved</div>
-    <div class="footer-right"><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+    <div class="fl">&copy; 2025 <span>HOBBY</span> — All rights reserved</div>
+    <div class="fr2"><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
   </footer>
 
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1/bundled/lenis.min.js"></script>
   <script>
-    // LENIS
-    const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), orientation: 'vertical', gestureOrientation: 'vertical', smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 2 });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-
-    // CUSTOM CURSOR
-    const cursor = document.getElementById('cursor');
-    const cursorTrail = document.getElementById('cursorTrail');
-    const glowTracker = document.getElementById('glowTracker');
-    let mouseX = 0, mouseY = 0, curX = 0, curY = 0, trailX = 0, trailY = 0;
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      if (glowTracker) { glowTracker.style.left = mouseX + 'px'; glowTracker.style.top = mouseY + 'px'; }
-    });
-    function animateCursor() {
-      curX += (mouseX - curX) * 0.15;
-      curY += (mouseY - curY) * 0.15;
-      trailX += (mouseX - trailX) * 0.08;
-      trailY += (mouseY - trailY) * 0.08;
-      if (cursor) { cursor.style.left = curX + 'px'; cursor.style.top = curY + 'px'; }
-      if (cursorTrail) { cursorTrail.style.left = trailX + 'px'; cursorTrail.style.top = trailY + 'px'; }
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-    document.querySelectorAll('a, button, .btn, .service-card, .project-card, .skill-item').forEach(el => {
-      el.addEventListener('mouseenter', () => { if (cursor) cursor.classList.add('active'); });
-      el.addEventListener('mouseleave', () => { if (cursor) cursor.classList.remove('active'); });
-    });
-
-    // NAV SCROLL
-    const nav = document.getElementById('nav');
-    lenis.on('scroll', ({ scroll }) => { nav.classList.toggle('scrolled', scroll > 80); });
-
-    // ANCHOR NAV
+    // SMOOTH SCROLL (no CDN dependency)
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
         const t = document.querySelector(a.getAttribute('href'));
-        if (t) lenis.scrollTo(t, { offset: 0, duration: 1.5 });
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
+    // NAV SCROLL
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
+
     // MOBILE MENU
-    const mt = document.getElementById('mobileToggle'), nl = document.getElementById('navLinks');
-    if (mt) mt.addEventListener('click', () => nl.classList.toggle('active'));
-    nl.querySelectorAll('a').forEach(l => l.addEventListener('click', () => nl.classList.remove('active')));
+    const mt = document.getElementById('mt'), nk = document.getElementById('nk');
+    if (mt) mt.addEventListener('click', () => nk.classList.toggle('active'));
+    nk.querySelectorAll('a').forEach(l => l.addEventListener('click', () => nk.classList.remove('active')));
 
     // FADE IN
-    const fi = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.fade-in').forEach(el => fi.observe(el));
+    const fi = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.fi').forEach(el => fi.observe(el));
 
-    // PARALLAX
-    const hb = document.querySelector('.hero-bg'), hg = document.querySelector('.hero-grid');
-    lenis.on('scroll', ({ scroll }) => {
-      if (hb) hb.style.transform = `translateY(${scroll * 0.3}px)`;
-      if (hg) hg.style.transform = `translateY(${scroll * 0.15}px)`;
-    });
+    // TYPING
+    const ht = document.querySelector('.ht');
+    if (ht) { const t = ht.textContent; ht.textContent = ''; let i = 0; const ti = setInterval(() => { ht.textContent += t[i]; i++; if (i >= t.length) clearInterval(ti); }, 50); }
 
-    // TYPING EFFECT
-    const ht = document.querySelector('.hero-tag');
-    if (ht) {
-      const txt = ht.textContent; ht.textContent = ''; let i = 0;
-      const ti = setInterval(() => { ht.textContent += txt[i]; i++; if (i >= txt.length) clearInterval(ti); }, 50);
-    }
-
-    // COUNTER ANIMATION
+    // COUNTER
     const so = new IntersectionObserver((es) => {
       es.forEach(e => {
         if (e.isIntersecting) {
@@ -824,29 +406,24 @@
         }
       });
     }, { threshold: 0.5 });
-    document.querySelectorAll('.hero-stat-value, .bb-stat-value').forEach(s => so.observe(s));
+    document.querySelectorAll('.hv, .bv').forEach(s => so.observe(s));
 
-    // PARTICLES (more + varied)
-    const pc = document.getElementById('particles');
-    for (let i = 0; i < 50; i++) {
+    // PARTICLES
+    const pc = document.getElementById('parts');
+    for (let i = 0; i < 40; i++) {
       const p = document.createElement('div');
-      p.className = 'particle';
+      p.className = 'part';
       p.style.left = Math.random() * 100 + '%';
       p.style.animationDuration = (Math.random() * 20 + 10) + 's';
       p.style.animationDelay = (Math.random() * 20) + 's';
-      const size = Math.random() * 4 + 1;
-      p.style.width = p.style.height = size + 'px';
-      p.style.opacity = Math.random() * 0.5 + 0.2;
+      const s = Math.random() * 3 + 1;
+      p.style.width = p.style.height = s + 'px';
       pc.appendChild(p);
     }
 
-    // KEYBOARD
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') nl.classList.remove('active'); });
-
     // CONSOLE
-    console.log('%c HOBBY PORTFOLIO ', 'background: #8E3CFF; color: #FFFFFF; font-size: 20px; font-weight: bold; padding: 10px 20px;');
-    console.log('%c [>] Security Researcher & Developer ', 'color: #C77DFF; font-size: 12px;');
-    console.log('%c [>] Interested? Let\\'s talk. ', 'color: #C77DFF; font-size: 12px;');
+    console.log('%c HOBBY PORTFOLIO ', 'background: #8E3CFF; color: #FFF; font-size: 18px; font-weight: bold; padding: 8px 16px;');
+    console.log('%c [>] Security Researcher & Developer ', 'color: #C77DFF; font-size: 11px;');
   </script>
 </body>
 </html>
