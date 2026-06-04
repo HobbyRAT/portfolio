@@ -5,7 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="HOBBY — Security Researcher, Penetration Tester, Bug Bounty Hunter">
   <meta name="theme-color" content="#0D0D0D">
+  <meta name="robots" content="index, follow">
+  <!-- Open Graph -->
+  <meta property="og:title" content="HOBBY | Security Researcher">
+  <meta property="og:description" content="Penetration tester, bug bounty hunter, Python developer. I build C2 dashboards, OSINT tools, and hunt bugs for money.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hobbyrat.github.io/portfolio/">
+  <meta property="og:image" content="https://hobbyrat.github.io/portfolio/assets/graphics/logo-final.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HOBBY | Security Researcher">
+  <meta name="twitter:description" content="Penetration tester, bug bounty hunter, Python developer. I build C2 dashboards, OSINT tools, and hunt bugs for money.">
+  <meta name="twitter:image" content="https://hobbyrat.github.io/portfolio/assets/graphics/logo-final.png">
   <title>HOBBY | Security Researcher</title>
+  <link rel="icon" type="image/png" href="assets/graphics/logo-final.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -181,6 +197,25 @@
     .pl{font-family:var(--m);font-size:.8rem;color:var(--acc3);display:inline-flex;align-items:center;gap:.5rem;transition:var(--tr)}
     .pl:hover{text-shadow:0 0 20px var(--glow2)}
 
+    /* ===== BLOG ===== */
+    .blog{padding:var(--p);background:var(--bg2)}
+    .bh{text-align:center;margin-bottom:5rem}
+    .bh .ss{margin:0 auto}
+    .bg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .bc{background:var(--card);border:1px solid var(--brd);overflow:hidden;transition:var(--tr);position:relative;border-radius:4px}
+    .bc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc3));transform:scaleX(0);transition:var(--tr)}
+    .bc:hover{border-color:var(--acc);transform:translateY(-6px);box-shadow:0 25px 60px rgba(142,60,255,.15)}
+    .bc:hover::before{transform:scaleX(1)}
+    .bc>*{position:relative;z-index:1}
+    .bco{padding:2rem}
+    .bdate{font-family:var(--m);font-size:.65rem;color:var(--acc3);margin-bottom:.8rem;opacity:.7}
+    .btitle{font-size:1.15rem;font-weight:600;margin-bottom:.5rem;line-height:1.4}
+    .bdesc{font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem}
+    .blink{font-family:var(--m);font-size:.8rem;color:var(--acc3);display:inline-flex;align-items:center;gap:.5rem;transition:var(--tr)}
+    .blink:hover{text-shadow:0 0 20px var(--glow2)}
+    .btags{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+    .btag{font-family:var(--m);font-size:.6rem;padding:.25rem .65rem;background:rgba(142,60,255,.08);color:var(--acc3);border:1px solid rgba(142,60,255,.15);text-transform:uppercase;letter-spacing:.06em;border-radius:2px}
+
     /* ===== BUG BOUNTY ===== */
     .bb{padding:var(--p);position:relative;overflow:hidden}
     .bbb{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--glow),transparent);animation:pulse 5s ease-in-out infinite}
@@ -245,6 +280,7 @@
       .ha{flex-direction:column}
       .btn{width:100%;justify-content:center}
       .ask{grid-template-columns:1fr}
+      .bg{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -260,6 +296,7 @@
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#projects">Projects</a>
+      <a href="#blog">Blog</a>
       <a href="#bb">Bug Bounty</a>
       <a href="#contact" class="nc">Contact</a>
     </div>
@@ -347,6 +384,45 @@
     </div>
   </section>
 
+  <section class="blog" id="blog">
+    <div class="container">
+      <div class="bh fi">
+        <div class="sl">Blog</div>
+        <h2 class="st"><span class="line"><span>Latest</span></span><span class="line"><span><span class="hl">Writeups</span></span></span></h2>
+        <p class="ss">Bug bounty findings, tool tutorials, and security research notes.</p>
+      </div>
+      <div class="bg">
+        <div class="bc fi">
+          <div class="bco">
+            <div class="bdate">2025-06-01</div>
+            <div class="btags"><span class="btag">Bug Bounty</span><span class="btag">IDOR</span></div>
+            <h3 class="btitle">How I Found an IDOR in a Major E-Commerce Platform</h3>
+            <p class="bdesc">A walkthrough of discovering an insecure direct object reference that exposed 100K+ user orders. Methodology, tools, and lessons learned.</p>
+            <a href="#" class="blink">Read More [-&gt;]</a>
+          </div>
+        </div>
+        <div class="bc fi">
+          <div class="bco">
+            <div class="bdate">2025-05-15</div>
+            <div class="btags"><span class="btag">OSINT</span><span class="btag">Tutorial</span></div>
+            <h3 class="btitle">Building an OSINT Pipeline with Python</h3>
+            <p class="bdesc">How I automated subdomain enumeration, email harvesting, and social media profiling into a single recon workflow.</p>
+            <a href="#" class="blink">Read More [-&gt;]</a>
+          </div>
+        </div>
+        <div class="bc fi">
+          <div class="bco">
+            <div class="bdate">2025-04-28</div>
+            <div class="btags"><span class="btag">PyQt6</span><span class="btag">C2</span></div>
+            <h3 class="btitle">Building a C2 Dashboard from Scratch</h3>
+            <p class="bdesc">Designing and developing HobbyRAT v14 -- a full PyQt6 command & control panel with 28 tabs, terminal theme, and real-time data.</p>
+            <a href="#" class="blink">Read More [-&gt;]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="bb" id="bb">
     <div class="bbb"></div>
     <div class="container">
@@ -398,8 +474,20 @@
 
   <footer class="footer">
     <div class="fl">&copy; 2025 <span>HOBBY</span> — All rights reserved</div>
-    <div class="fr2"><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+    <div class="fr2"><a href="#about">About</a><a href="#services">Services</a><a href="#blog">Blog</a><a href="#contact">Contact</a></div>
   </footer>
+
+  <!-- Terminal Easter Egg Overlay -->
+  <div id="terminal-overlay" style="display:none;position:fixed;inset:0;background:rgba(13,13,13,.95);z-index:99999;padding:2rem;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#C77DFF;overflow-y:auto;cursor:default;">
+    <div style="max-width:800px;margin:0 auto;">
+      <div style="color:#8E3CFF;margin-bottom:1rem;">[HOBBY-TERMINAL v1.0]</div>
+      <div style="color:#888;margin-bottom:.5rem;">Type 'help' for available commands. Press ESC or click anywhere to close.</div>
+      <div id="terminal-output" style="margin-bottom:1rem;"></div>
+      <div style="display:flex;align-items:center;gap:.5rem;">
+        <span style="color:#8E3CFF;">hobby@portfolio</span>:<span style="color:#C77DFF;">~</span>$ <input id="terminal-input" type="text" style="flex:1;background:transparent;border:none;color:#C77DFF;font-family:'JetBrains Mono',monospace;font-size:.85rem;outline:none;" autocomplete="off" autofocus>
+      </div>
+    </div>
+  </div>
 
   <script>
     // SMOOTH SCROLL
@@ -506,6 +594,152 @@
     // CONSOLE
     console.log('%c HOBBY PORTFOLIO ','background:#8E3CFF;color:#FFF;font-size:18px;font-weight:bold;padding:8px 16px;');
     console.log('%c [>] Security Researcher & Developer ','color:#C77DFF;font-size:11px;');
+    console.log('%c [>] Press ~ for terminal ','color:#888;font-size:10px;');
+
+    // TERMINAL EASTER EGG
+    const termOverlay = document.getElementById('terminal-overlay');
+    const termInput = document.getElementById('terminal-input');
+    const termOutput = document.getElementById('terminal-output');
+    let termOpen = false;
+
+    const commands = {
+      help: () => [
+        'Available commands:',
+        '  whoami    -- About me',
+        '  projects  -- My projects',
+        '  skills    -- Technical skills',
+        '  contact   -- How to reach me',
+        '  social    -- Social links',
+        '  pgp       -- PGP public key',
+        '  history   -- Command history',
+        '  clear     -- Clear terminal',
+        '  exit      -- Close terminal',
+        '',
+        'Tip: Check the browser console too.',
+      ],
+      whoami: () => [
+        'HOBBY -- Security Researcher & Python Developer',
+        'Based in DE/AT/CH.',
+        'I build C2 dashboards, OSINT tools, and hunt bugs.',
+        '',
+        '> Specialties: Web App Sec, Network Pentest, OSINT',
+        '> Tools: Python, PyQt6, Burp Suite, Nmap',
+        '> Status: Available for freelance work',
+      ],
+      projects: () => [
+        '[1] HobbyRAT    -- PyQt6 C2 Dashboard (28 tabs)',
+        '[2] HobbyFinder -- OSINT Tool (DE/AT/CH)',
+        '[3] iBot        -- Instagram Automation Suite',
+        '[4] Recon Pipe  -- Automated Recon Pipeline',
+        '',
+        'https://github.com/HobbyRAT',
+      ],
+      skills: () => [
+        'Web Security:    OWASP Top 10, API testing, Auth bypass',
+        'Pentesting:      Network, AD, Cloud, Mobile',
+        'OSINT:           Recon, profiling, dark web monitoring',
+        'Development:     Python, PyQt6, Automation',
+        'Tools:           Burp Suite, Nmap, Ghidra, Volatility',
+      ],
+      contact: () => [
+        'Email:    your@email.com',
+        'GitHub:   github.com/HobbyRAT',
+        'HackerOne: hackerone.com/hobbyrat',
+        '',
+        'For pentest inquiries, use the contact form.',
+      ],
+      social: () => {
+        const links = [
+          'GitHub:    https://github.com/HobbyRAT',
+          'HackerOne: https://hackerone.com/hobbyrat',
+          'Bugcrowd:  https://bugcrowd.com/hobbyrat',
+          'Intigriti: https://intigriti.com/profile/hobbyrat',
+        ];
+        return links;
+      },
+      pgp: () => [
+        'PGP Public Key: (not configured yet)',
+        '',
+        'To add your PGP key:',
+        '1. Export: gpg --armor --export your@email.com',
+        '2. Add the ASCII block to index.html',
+        '',
+        'PGP shows professionalism in security.',
+      ],
+      history: () => [
+        'Command history is stored per session.',
+        'Use arrow keys (coming soon).',
+      ],
+      clear: () => {
+        termOutput.innerHTML = '';
+        return null;
+      },
+      exit: () => {
+        termOverlay.style.display = 'none';
+        termOpen = false;
+        return null;
+      },
+      ls: () => ['about.txt', 'projects/', 'skills.md', 'contact.sh', 'pgp.key'],
+      pwd: () => ['/home/hobby/portfolio'],
+      date: () => [new Date().toString()],
+      uname: () => ['HobbyOS 1.0.0 -- Security Researcher Edition'],
+      sudo: () => ['nice try. this is read-only.'],
+      rm: () => ['access denied. this is a portfolio, not a sandbox.'],
+      cat: () => ['meow. try: cat about.txt -- just kidding, use the commands.'],
+    };
+
+    function openTerminal() {
+      termOverlay.style.display = 'block';
+      termOpen = true;
+      termInput.focus();
+      termOutput.innerHTML += '<div style="color:#8E3CFF;">[HOBBY-TERMINAL] Welcome. Type "help" for commands.</div>';
+    }
+
+    function execTermCmd(cmd) {
+      const c = cmd.trim().toLowerCase();
+      const handler = commands[c];
+      if (handler) {
+        const result = handler();
+        if (result) {
+          result.forEach(line => {
+            termOutput.innerHTML += '<div style="color:#C77DFF;opacity:.85;margin-bottom:2px;">' + line + '</div>';
+          });
+        }
+      } else if (c) {
+        termOutput.innerHTML += '<div style="color:#ff4444;">Command not found: ' + c + '. Type "help".</div>';
+      }
+    }
+
+    // Konami code: ~ to toggle terminal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '~' || (e.key === 'Escape' && termOpen)) {
+        e.preventDefault();
+        if (termOpen) {
+          termOverlay.style.display = 'none';
+          termOpen = false;
+        } else {
+          openTerminal();
+        }
+      }
+    });
+
+    termInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmd = termInput.value;
+        termOutput.innerHTML += '<div style="color:#8E3CFF;">hobby@portfolio:~$ ' + cmd + '</div>';
+        execTermCmd(cmd);
+        termInput.value = '';
+        termOverlay.scrollTop = termOverlay.scrollHeight;
+      }
+    });
+
+    // Click outside to close
+    termOverlay.addEventListener('click', (e) => {
+      if (e.target === termOverlay) {
+        termOverlay.style.display = 'none';
+        termOpen = false;
+      }
+    });
   </script>
 </body>
 </html>
