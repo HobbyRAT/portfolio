@@ -44,8 +44,8 @@
 
     /* ===== PARTICLES ===== */
     .parts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-    .part{position:absolute;border-radius:50%;background:var(--acc3);animation:fp linear infinite;will-change:transform,opacity;box-shadow:0 0 4px var(--acc3)}
-    @keyframes fp{0%{opacity:0;transform:translate3d(0,100vh,0) scale(0)}8%{opacity:.7}92%{opacity:.3}100%{opacity:0;transform:translate3d(0,-10vh,0) scale(1)}}
+    .part{position:absolute;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--acc3);animation:fall linear infinite;will-change:transform,opacity;text-shadow:0 0 8px var(--acc3);white-space:nowrap}
+    @keyframes fall{0%{opacity:0;transform:translate3d(0,-10vh,0)}5%{opacity:.6}95%{opacity:.2}100%{opacity:0;transform:translate3d(var(--drift,0),105vh,0)}}
 
     /* ===== MAGNETIC CURSOR ===== */
     .cursor{width:18px;height:18px;border:2px solid var(--acc3);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transition:transform .15s ease,width .2s ease,height .2s ease,border-color .2s ease;mix-blend-mode:difference}
@@ -546,20 +546,39 @@
     },{threshold:0.5});
     document.querySelectorAll('.hv,.bv').forEach(s=>so.observe(s));
 
-    // PARTICLES
+    // PARTICLES -- Matrix rain style
     const pc=document.getElementById('parts');
     const isMobile=window.innerWidth<768;
-    const pCount=isMobile?8:25;
+    const pCount=isMobile?10:30;
+    const chars=['0','1','{','}','<','>','/','\\','|','-','+','*','#','@','!','?','~','$','%','&','(',')','[',']',':',';','.',',','_','=','^'];
     for(let i=0;i<pCount;i++){
       const p=document.createElement('div');
       p.className='part';
+      // Random character, regenerate periodically
+      const ch=chars[Math.floor(Math.random()*chars.length)];
+      p.textContent=ch;
       p.style.left=Math.random()*100+'%';
-      p.style.animationDuration=(Math.random()*25+15)+'s';
-      p.style.animationDelay=(Math.random()*25)+'s';
-      const s=Math.random()*3+1;
-      p.style.width=p.style.height=s+'px';
+      p.style.animationDuration=(Math.random()*12+8)+'s';
+      p.style.animationDelay=(Math.random()*15)+'s';
+      p.style.fontSize=(Math.random()*10+10)+'px';
+      p.style.opacity=Math.random()*0.4+0.2;
+      // Slight horizontal drift
+      const drift=(Math.random()-0.5)*20;
+      p.style.animationName='fall';
+      // Store drift for keyframes via custom property
+      p.style.setProperty('--drift',drift+'px');
       pc.appendChild(p);
     }
+
+    // Regenerate particle chars every 2s for living effect
+    const particleChars=['0','1','{','}','<','>','/','\\','|','-','+','*','#','@','!','?','~','$','%','&','(',')','[',']',':',';','.',',','_','=','^'];
+    setInterval(()=>{
+      document.querySelectorAll('.part').forEach(p=>{
+        if(Math.random()<0.3){
+          p.textContent=particleChars[Math.floor(Math.random()*particleChars.length)];
+        }
+      });
+    },2000);
 
     // CUSTOM CURSOR (desktop only)
     if(!isMobile){
