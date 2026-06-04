@@ -517,14 +517,18 @@
     const revealObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.3});
     reveals.forEach(el=>revealObs.observe(el));
 
-    // COUNTER
+    // COUNTER (only animate numeric values)
     const so=new IntersectionObserver((es)=>{
       es.forEach(e=>{
         if(e.isIntersecting){
           const el=e.target,tv=el.textContent;
+          // Skip non-numeric values (like "DE/AT/CH", "24/7", "Active", etc.)
+          const numMatch = tv.match(/^[^0-9]*([0-9]+\.?[0-9]*)[^0-9]*$/);
+          if (!numMatch) { so.unobserve(el); return; }
+          const tn=parseFloat(numMatch[1]);
+          if (isNaN(tn)) { so.unobserve(el); return; }
           const hasP=tv.includes('+'),hasK=tv.includes('K'),hasE=tv.includes('€');
-          let ns=tv.replace(/[^0-9.]/g,'');
-          const tn=parseFloat(ns),dur=2000,st=performance.now();
+          const dur=2000,st=performance.now();
           function anim(ct){
             const elp=ct-st,prog=Math.min(elp/dur,1),eased=1-Math.pow(1-prog,3);
             const cur=Math.floor(tn*eased);
