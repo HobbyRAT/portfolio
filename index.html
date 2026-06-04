@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0D0D0D;--bg2:#1A1A1A;--bg3:#111;--card:rgba(20,20,20,.6);--txt:#FFF;--muted:#888;--acc:#8E3CFF;--acc2:#6A2C91;--acc3:#C77DFF;--glow:rgba(142,60,255,.15);--glow2:rgba(142,60,255,.35);--brd:rgba(255,255,255,.08);--m:'JetBrains Mono',monospace;--s:'Inter',sans-serif;--tr:.4s cubic-bezier(.4,0,.2,1);--p:6rem 2rem}
+    :root{--bg:#0D0D0D;--bg2:#1A1A1A;--bg3:#111;--card:rgba(20,20,20,.6);--txt:#FFF;--muted:#888;--acc:#8E3CFF;--acc2:#6A2C91;--acc3:#C77DFF;--glow:rgba(142,60,255,.15);--glow2:rgba(142,60,255,.35);--brd:rgba(255,255,255,.08);--m:'JetBrains Mono',monospace;--s:'Inter',sans-serif;--tr:.4s cubic-bezier(.4,0,.2,1);--p:6rem 2rem;--red:#dc2626;--red2:#991b1b;--red3:#fca5a5;--redglow:rgba(220,38,38,.15);--redglow2:rgba(220,38,38,.35)}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth;font-size:16px}
     body{background:var(--bg);color:var(--txt);font-family:var(--s);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -216,7 +216,17 @@
     .btags{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
     .btag{font-family:var(--m);font-size:.6rem;padding:.25rem .65rem;background:rgba(142,60,255,.08);color:var(--acc3);border:1px solid rgba(142,60,255,.15);text-transform:uppercase;letter-spacing:.06em;border-radius:2px}
 
-    /* ===== BUG BOUNTY ===== */
+    /* ===== RED HAT MODE ===== */
+    body.red-mode{--acc:var(--red);--acc2:var(--red2);--acc3:var(--red3);--glow:var(--redglow);--glow2:var(--redglow2);transition:--acc .6s ease,--acc2 .6s ease,--acc3 .6s ease,--glow .6s ease,--glow2 .6s ease}
+    body.red-mode .part{color:var(--red3);text-shadow:0 0 8px var(--red3);transition:color .6s ease,text-shadow .6s ease}
+    body.red-mode .scan{background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 2px);mix-blend-mode:multiply}
+    body.red-mode .part{color:var(--red3);text-shadow:0 0 8px var(--red3)}
+    .sc.red-hat{border-color:rgba(220,38,38,.3);background:rgba(20,10,10,.6)}
+    .sc.red-hat::before{background:linear-gradient(90deg,var(--red),#ff6b6b)}
+    .sc.red-hat .snum{color:var(--red3)}
+    .sc.red-hat .spr{color:var(--red3)}
+    .sc.red-hat:hover{border-color:var(--red);box-shadow:0 25px 60px rgba(220,38,38,.15)}
+    .sc.red-hat .stitle{color:var(--red3)}
     .bb{padding:var(--p);position:relative;overflow:hidden}
     .bbb{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--glow),transparent);animation:pulse 5s ease-in-out infinite}
     .bbc{position:relative;z-index:1;text-align:center;max-width:700px;margin:0 auto}
@@ -377,7 +387,7 @@
         <div class="sc fi"><div class="snum">16</div><h3 class="stitle">Technology Fingerprinting</h3><p class="sdesc">Identify software versions, frameworks, and services running on your infrastructure. Know your stack.</p><div class="spr"><span>&euro;</span>25<span>/target</span></div></div>
         <div class="sc fi"><div class="snum">17</div><h3 class="stitle">Dark Web Monitoring</h3><p class="sdesc">Check if your credentials, domains, or data appear in breaches, leaks, or dark web markets.</p><div class="spr"><span>&euro;</span>80<span>/scan</span></div></div>
         <div class="sc fi"><div class="snum">18</div><h3 class="stitle">White Hat Scan</h3><p class="sdesc">Authorized vulnerability scan with detailed report. OWASP Top 10, misconfigurations, and quick wins.</p><div class="spr"><span>&euro;</span>100<span>/target</span></div></div>
-        <div class="sc fi"><div class="snum">19</div><h3 class="stitle">Red Hat Assessment</h3><p class="sdesc">Offensive security simulation. Social engineering, physical security, and insider threat testing.</p><div class="spr"><span>&euro;</span>500<span>/engagement</span></div></div>
+        <div class="sc fi red-hat"><div class="snum">19</div><h3 class="stitle">Red Hat Assessment</h3><p class="sdesc">Offensive security simulation. Social engineering, physical security, and insider threat testing.</p><div class="spr"><span>&euro;</span>500<span>/engagement</span></div></div>
         <div class="sc fi"><div class="snum">20</div><h3 class="stitle">Header Security Check</h3><p class="sdesc">Analyze HTTP security headers (CSP, HSTS, X-Frame, etc.). Quick fix recommendations included.</p><div class="spr"><span>&euro;</span>20<span>/domain</span></div></div>
       </div>
     </div>
@@ -593,6 +603,24 @@
         }
       });
     },2000);
+
+    // RED HAT MODE -- switch accent color to red when scrolling to red-hat card
+    const redHatCard = document.querySelector('.sc.red-hat');
+    if(redHatCard){
+      const redModeObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            document.body.classList.add('red-mode');
+          } else {
+            const rect = redHatCard.getBoundingClientRect();
+            if(rect.top > window.innerHeight * 0.5){
+              document.body.classList.remove('red-mode');
+            }
+          }
+        });
+      },{threshold:0.3,rootMargin:'0px 0px -30% 0px'});
+      redModeObserver.observe(redHatCard);
+    }
 
     // CUSTOM CURSOR (desktop only)
     if(!isMobile){
