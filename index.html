@@ -148,6 +148,33 @@
     .mt.active span:nth-child(2){opacity:0}
     .mt.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
+    /* ===== SCROLL PROGRESS ===== */
+    .scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc3));z-index:1000;transform-origin:left;transform:scaleX(0);transition:transform .1s linear;pointer-events:none}
+    .scroll-progress.active{transform:scaleX(1)}
+
+    /* ===== SCROLL TO TOP ===== */
+    .scroll-top{position:fixed;bottom:2.5rem;right:2.5rem;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .3s ease;z-index:100;font-family:var(--m);font-size:.9rem;color:var(--acc3);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+    .scroll-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+    .scroll-top:hover{border-color:var(--acc);color:var(--txt);background:var(--acc);box-shadow:0 0 30px var(--glow2)}
+
+    /* ===== STICKY TOC SIDEBAR ===== */
+    .toc-sidebar{position:fixed;right:2.5rem;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:.5rem;padding:1rem;background:var(--card);border:1px solid var(--brd);border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.3);opacity:0;visibility:hidden;transition:all .3s ease;pointer-events:none}
+    .toc-sidebar.visible{opacity:1;visibility:visible;pointer-events:auto}
+    .toc-link{font-family:var(--m);font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;writing-mode:vertical-rl;text-orientation:mixed;transition:all .2s ease;position:relative;padding:.5rem 0;cursor:pointer}
+    .toc-link::before{content:'';position:absolute;left:-1rem;top:50%;transform:translateY(-50%);width:4px;height:4px;border-radius:50%;background:var(--brd);transition:all .2s ease}
+    .toc-link:hover{color:var(--acc3);text-shadow:0 0 10px var(--glow2)}
+    .toc-link:hover::before{background:var(--acc3);box-shadow:0 0 10px var(--glow2);transform:translateY(-50%) scale(1.5)}
+    .toc-link.active{color:var(--acc3)}
+    .toc-link.active::before{background:var(--acc3);box-shadow:0 0 10px var(--glow2);transform:translateY(-50%) scale(1.5)}
+
+    /* ===== MOBILE BOTTOM NAV ===== */
+    .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(13,13,13,.95);backdrop-filter:blur(20px);border-top:1px solid var(--brd);padding:.5rem 1rem;gap:.5rem}
+    .mobile-nav.visible{display:flex;justify-content:space-around;align-items:center}
+    .mobile-nav-link{display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.5rem .75rem;color:var(--muted);font-family:var(--m);font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;transition:all .2s ease;border-radius:6px}
+    .mobile-nav-link svg{width:20px;height:20px;stroke:currentColor;fill:none;transition:all .2s ease}
+    .mobile-nav-link:hover,.mobile-nav-link.active{color:var(--acc3);background:rgba(142,60,255,.1)}
+    .mobile-nav-link.active svg{stroke:var(--acc3)}
+
     /* ===== HERO ===== */
     .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:var(--p);overflow:hidden;padding-top:8rem}
     .hb{position:absolute;inset:0;pointer-events:none}
@@ -535,6 +562,48 @@
       <a href="#contact" class="nc">Hire Me</a>
     </div>
     <div class="mt" id="mt"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">[^]</button>
+
+  <!-- Sticky TOC Sidebar -->
+  <nav class="toc-sidebar" id="toc-sidebar" aria-label="Table of Contents">
+    <a href="#hero" class="toc-link" data-section="hero">Home</a>
+    <a href="#about" class="toc-link" data-section="about">About</a>
+    <a href="#tools" class="toc-link" data-section="tools">Tools</a>
+    <a href="#services" class="toc-link" data-section="services">Services</a>
+    <a href="#projects" class="toc-link" data-section="projects">Projects</a>
+    <a href="#shop" class="toc-link" data-section="shop">Shop</a>
+    <a href="#tool-demos" class="toc-link" data-section="tool-demos">Demos</a>
+    <a href="#blog" class="toc-link" data-section="blog">Blog</a>
+    <a href="#hall-of-fame" class="toc-link" data-section="hall-of-fame">Hall of Fame</a>
+    <a href="#testimonials" class="toc-link" data-section="testimonials">Reviews</a>
+    <a href="#freelance" class="toc-link" data-section="freelance">Hire Me</a>
+    <a href="#contact" class="toc-link" data-section="contact">Contact</a>
+  </nav>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+    <a href="#hero" class="mobile-nav-link" data-section="hero">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="#services" class="mobile-nav-link" data-section="services">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+      <span>Services</span>
+    </a>
+    <a href="#projects" class="mobile-nav-link" data-section="projects">
+      <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <span>Projects</span>
+    </a>
+    <a href="#contact" class="mobile-nav-link" data-section="contact">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span>Contact</span>
+    </a>
   </nav>
 
   <section class="hero" id="hero">
@@ -1250,6 +1319,92 @@
     // NAV
     const nav=document.getElementById('nav');
     window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>80));
+
+    // SCROLL PROGRESS BAR
+    const scrollProgress=document.getElementById('scroll-progress');
+    window.addEventListener('scroll',()=>{
+      const scrollTop=window.scrollY;
+      const docHeight=document.documentElement.scrollHeight-window.innerHeight;
+      const scrollPercent=scrollTop/docHeight;
+      scrollProgress.style.transform=`scaleX(${scrollPercent})`;
+      if(scrollPercent>0)scrollProgress.classList.add('active');
+      else scrollProgress.classList.remove('active');
+    });
+
+    // SCROLL TO TOP BUTTON
+    const scrollTopBtn=document.getElementById('scroll-top');
+    window.addEventListener('scroll',()=>{
+      if(window.scrollY>300)scrollTopBtn.classList.add('visible');
+      else scrollTopBtn.classList.remove('visible');
+    });
+    scrollTopBtn.addEventListener('click',()=>{
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    // STICKY TOC SIDEBAR
+    const tocSidebar=document.getElementById('toc-sidebar');
+    const tocLinks=tocSidebar.querySelectorAll('.toc-link');
+    const sections=['hero','about','tools','services','projects','shop','tool-demos','blog','hall-of-fame','testimonials','freelance','contact'].map(id=>document.getElementById(id)).filter(Boolean);
+
+    // Show/hide sidebar based on scroll position
+    window.addEventListener('scroll',()=>{
+      if(window.scrollY>window.innerHeight*0.5){
+        tocSidebar.classList.add('visible');
+      }else{
+        tocSidebar.classList.remove('visible');
+      }
+    });
+
+    // Active section highlighting
+    const sectionObserver=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const id=entry.target.id;
+        const link=tocSidebar.querySelector(`.toc-link[data-section="${id}"]`);
+        if(link){
+          if(entry.isIntersecting){
+            tocLinks.forEach(l=>l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        }
+      });
+    },{threshold:0.4,rootMargin:'-10% 0px -60% 0px'});
+
+    sections.forEach(sec=>sectionObserver.observe(sec));
+
+    // MOBILE BOTTOM NAV
+    const mobileNav=document.getElementById('mobile-nav');
+    const mobileNavLinks=mobileNav.querySelectorAll('.mobile-nav-link');
+    const isMobile=window.innerWidth<768;
+    
+    if(isMobile){
+      mobileNav.classList.add('visible');
+    }
+
+    // Active section highlighting for mobile nav
+    const mobileSectionObserver=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const id=entry.target.id;
+        const link=mobileNav.querySelector(`.mobile-nav-link[data-section="${id}"]`);
+        if(link){
+          if(entry.isIntersecting){
+            mobileNavLinks.forEach(l=>l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        }
+      });
+    },{threshold:0.4,rootMargin:'-10% 0px -60% 0px'});
+
+    sections.forEach(sec=>mobileSectionObserver.observe(sec));
+
+    // Close mobile menu on nav link click
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth<768){
+        mobileNav.classList.add('visible');
+        tocSidebar.classList.remove('visible');
+      }else{
+        mobileNav.classList.remove('visible');
+      }
+    });
 
     // MOBILE MENU
     const mt=document.getElementById('mt'),nk=document.getElementById('nk');
