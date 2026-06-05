@@ -1,7 +1,11 @@
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://hobbyrat.github.io/portfolio/sitemap.xml
 
-# Disallow common non-content paths
-Disallow: /assets/
+# Allow search engines to render JS/CSS
+Allow: /assets/graphics/
+
+# Crawl-delay for polite bots
+Crawl-delay: 1

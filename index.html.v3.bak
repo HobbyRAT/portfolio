@@ -1,63 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" data-v="5">
+<html lang="en" data-v="3">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HOBBY — Security Researcher, Penetration Tester & Bug Bounty Hunter. I build C2 dashboards, OSINT tools, and hunt bugs for money. Based in DE/AT/CH.">
-  <meta name="keywords" content="security researcher, penetration tester, bug bounty hunter, OSINT, C2 dashboard, Python developer, PyQt6, web application security, network pentesting, HackerOne, Bugcrowd, freelance pentesting">
-  <meta name="author" content="HOBBY">
+  <meta name="description" content="HOBBY — Security Researcher, Penetration Tester, Bug Bounty Hunter">
   <meta name="theme-color" content="#0D0D0D">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="format-detection" content="telephone=no">
-  <link rel="canonical" href="https://hobbyrat.github.io/portfolio/" />
+  <meta name="robots" content="index, follow">
   <!-- Open Graph -->
-  <meta property="og:title" content="HOBBY | Security Researcher & Developer">
-  <meta property="og:description" content="Penetration tester, bug bounty hunter, Python developer. I build C2 dashboards, OSINT tools, and hunt bugs for money. Based in DE/AT/CH.">
+  <meta property="og:title" content="HOBBY | Security Researcher">
+  <meta property="og:description" content="Penetration tester, bug bounty hunter, Python developer. I build C2 dashboards, OSINT tools, and hunt bugs for money.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hobbyrat.github.io/portfolio/">
-  <meta property="og:site_name" content="HOBBY Portfolio">
   <meta property="og:image" content="https://hobbyrat.github.io/portfolio/assets/graphics/og-banner.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="HOBBY — Security Researcher, Penetration Tester & Bug Bounty Hunter">
   <meta property="og:locale" content="en_US">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HOBBY | Security Researcher & Developer">
+  <meta name="twitter:title" content="HOBBY | Security Researcher">
   <meta name="twitter:description" content="Penetration tester, bug bounty hunter, Python developer. I build C2 dashboards, OSINT tools, and hunt bugs for money.">
   <meta name="twitter:image" content="https://hobbyrat.github.io/portfolio/assets/graphics/og-banner.png">
-  <meta name="twitter:creator" content="@hobbyrat">
-  <title>HOBBY | Security Researcher & Developer | Penetration Tester</title>
+  <title>HOBBY | Security Researcher</title>
   <link rel="icon" type="image/png" href="assets/graphics/logo-final.png">
-  <link rel="preload" href="assets/graphics/logo-final.png" as="image">
-  <link rel="preload" href="assets/graphics/og-banner.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "HOBBY",
-    "url": "https://hobbyrat.github.io/portfolio/",
-    "jobTitle": "Security Researcher",
-    "description": "Security Researcher, Penetration Tester & Bug Bounty Hunter. I build C2 dashboards, OSINT tools, and hunt bugs for money.",
-    "knowsAbout": ["Penetration Testing", "Bug Bounty", "OSINT", "Web Application Security", "Network Pentesting", "Python", "PyQt6"],
-    "sameAs": [
-      "https://github.com/HobbyRAT",
-      "https://hackerone.com/hobbyrat",
-      "https://bugcrowd.com/hobbyrat",
-      "https://intigriti.com/profile/hobbyrat"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "DE"
-    }
-  }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{--bg:#0D0D0D;--bg2:#1A1A1A;--bg3:#111;--card:rgba(20,20,20,.6);--txt:#FFF;--muted:#888;--acc:#8E3CFF;--acc2:#6A2C91;--acc3:#C77DFF;--glow:rgba(142,60,255,.15);--glow2:rgba(142,60,255,.35);--brd:rgba(255,255,255,.08);--m:'JetBrains Mono',monospace;--s:'Inter',sans-serif;--tr:.4s cubic-bezier(.4,0,.2,1);--p:6rem 2rem;--red:#dc2626;--red2:#991b1b;--red3:#fca5a5;--redglow:rgba(220,38,38,.15);--redglow2:rgba(220,38,38,.35)}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -376,106 +343,6 @@
     .btn-cta::before{display:none}
     .btn-cta:hover{box-shadow:0 0 40px var(--glow2);transform:translateY(-2px)}
 
-    /* ===== PENTEST SHOWCASE ===== */
-    .pentest-showcase{padding:var(--p);position:relative;overflow:hidden}
-    .ps-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 50%,var(--glow),transparent),radial-gradient(ellipse 40% 40% at 80% 20%,rgba(199,125,255,.06),transparent);animation:pulse 8s ease-in-out infinite}
-    .ps-inner{position:relative;z-index:1}
-    .ps-header{text-align:center;margin-bottom:5rem}
-    .ps-header .ss{margin:0 auto}
-    .ps-stats{display:flex;justify-content:center;gap:4rem;margin:3rem 0;flex-wrap:wrap}
-    .ps-num{font-family:var(--m);font-size:2.8rem;font-weight:700;color:var(--acc3);text-shadow:0 0 40px var(--glow2)}
-    .ps-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
-    .ps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-    .ps-card{background:var(--card);border:1px solid var(--brd);padding:2.5rem;transition:var(--tr);position:relative;overflow:hidden;border-radius:4px}
-    .ps-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc3));transform:scaleX(0);transition:var(--tr)}
-    .ps-card:hover{border-color:var(--acc);transform:translateY(-6px);box-shadow:0 25px 60px rgba(142,60,255,.15)}
-    .ps-card:hover::before{transform:scaleX(1)}
-    .ps-card>*{position:relative;z-index:1}
-    .ps-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem}
-    .ps-client{font-size:1.2rem;font-weight:600}
-    .ps-conf{font-family:var(--m);font-size:.65rem;color:var(--acc3);padding:.3rem .7rem;background:rgba(142,60,255,.08);border:1px solid rgba(142,60,255,.15);border-radius:2px;text-transform:uppercase;letter-spacing:.06em}
-    .ps-scope{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
-    .ps-scope-tag{font-family:var(--m);font-size:.6rem;padding:.25rem .65rem;background:rgba(142,60,255,.08);color:var(--acc3);border:1px solid rgba(142,60,255,.15);text-transform:uppercase;letter-spacing:.06em;border-radius:2px}
-    .ps-desc{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
-    .ps-findings{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.5rem}
-    .ps-finding{text-align:center;padding:.8rem .5rem;background:var(--bg3);border:1px solid var(--brd);border-radius:4px}
-    .ps-fnum{font-family:var(--m);font-size:1.4rem;font-weight:700}
-    .ps-fnum.critical{color:#ff4444;text-shadow:0 0 15px rgba(255,68,68,.3)}
-    .ps-fnum.high{color:#ff8800;text-shadow:0 0 15px rgba(255,136,0,.3)}
-    .ps-fnum.medium{color:#ffcc00;text-shadow:0 0 15px rgba(255,204,0,.2)}
-    .ps-fnum.low{color:#44ff44;text-shadow:0 0 15px rgba(68,255,68,.2)}
-    .ps-flabel{font-family:var(--m);font-size:.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
-    .ps-tags{display:flex;gap:.5rem;flex-wrap:wrap}
-    .ps-tag{font-family:var(--m);font-size:.6rem;padding:.25rem .65rem;background:rgba(142,60,255,.08);color:var(--acc3);border:1px solid rgba(142,60,255,.15);text-transform:uppercase;letter-spacing:.06em;border-radius:2px}
-
-    /* ===== ENHANCED HALL OF FAME ===== */
-    .hof-stats{display:flex;justify-content:center;gap:4rem;margin:3rem 0;flex-wrap:wrap}
-    .hof-num{font-family:var(--m);font-size:2.8rem;font-weight:700;color:var(--acc3);text-shadow:0 0 40px var(--glow2)}
-    .hof-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
-    .hof-table-wrap{margin-top:4rem;overflow-x:auto}
-    .hof-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--brd);border-radius:4px;overflow:hidden}
-    .hof-table th{font-family:var(--m);font-size:.7rem;color:var(--acc3);text-transform:uppercase;letter-spacing:.12em;padding:1rem 1.5rem;text-align:left;border-bottom:1px solid var(--brd);background:var(--bg3)}
-    .hof-table td{padding:1rem 1.5rem;border-bottom:1px solid var(--brd);font-size:.9rem;color:var(--muted)}
-    .hof-table tr:last-child td{border-bottom:none}
-    .hof-table tr:hover{background:rgba(142,60,255,.03)}
-    .hof-sev{font-family:var(--m);font-size:.7rem;padding:.25rem .65rem;border-radius:2px;text-transform:uppercase;letter-spacing:.06em}
-    .hof-sev.critical{background:rgba(255,68,68,.1);color:#ff4444;border:1px solid rgba(255,68,68,.2)}
-    .hof-sev.high{background:rgba(255,136,0,.1);color:#ff8800;border:1px solid rgba(255,136,0,.2)}
-    .hof-sev.medium{background:rgba(255,204,0,.1);color:#ffcc00;border:1px solid rgba(255,204,0,.2)}
-    .hof-sev.low{background:rgba(68,255,68,.1);color:#44ff44;border:1px solid rgba(68,255,68,.2)}
-    .hof-sev.info{background:rgba(68,136,255,.1);color:#4488ff;border:1px solid rgba(68,136,255,.2)}
-    .hof-bounty{font-family:var(--m);font-size:.85rem;color:var(--acc3)}
-    .hof-cve{font-family:var(--m);font-size:.75rem;color:var(--acc3);opacity:.7}
-    .hof-platform{font-family:var(--m);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-
-    /* ===== TOOL DEMOS ===== */
-    .tool-demos{padding:var(--p);background:var(--bg2)}
-    .td-header{text-align:center;margin-bottom:5rem}
-    .td-header .ss{margin:0 auto}
-    .td-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-    .td-card{background:var(--card);border:1px solid var(--brd);overflow:hidden;transition:var(--tr);position:relative;border-radius:4px}
-    .td-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc3));transform:scaleX(0);transition:var(--tr)}
-    .td-card:hover{border-color:var(--acc);transform:translateY(-6px);box-shadow:0 25px 60px rgba(142,60,255,.15)}
-    .td-card:hover::before{transform:scaleX(1)}
-    .td-card>*{position:relative;z-index:1}
-    .td-preview{height:240px;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-    .td-preview img{max-width:100%;max-height:100%;object-fit:contain;opacity:.6;transition:var(--tr)}
-    .td-card:hover .td-preview img{opacity:1;transform:scale(1.05)}
-    .td-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,var(--card));pointer-events:none}
-    .td-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(142,60,255,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--m);font-size:1.2rem;color:var(--txt);transition:var(--tr);z-index:2}
-    .td-card:hover .td-play{background:var(--acc);box-shadow:0 0 30px var(--glow2)}
-    .td-content{padding:2rem}
-    .td-title{font-size:1.2rem;font-weight:600;margin-bottom:.5rem}
-    .td-desc{font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem}
-    .td-tags{display:flex;gap:.5rem;flex-wrap:wrap}
-    .td-tag{font-family:var(--m);font-size:.6rem;padding:.25rem .65rem;background:rgba(142,60,255,.08);color:var(--acc3);border:1px solid rgba(142,60,255,.15);text-transform:uppercase;letter-spacing:.06em;border-radius:2px}
-
-    /* ===== ENHANCED TESTIMONIALS ===== */
-    .tt-rating{display:flex;gap:.2rem;margin-bottom:1rem}
-    .tt-star{color:var(--acc3);font-size:.9rem}
-    .tt-star.empty{color:var(--brd)}
-    .tt-company{font-family:var(--m);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:.5rem}
-
-    /* ===== FREELANCE CTA ===== */
-    .freelance-cta{padding:var(--p);position:relative;overflow:hidden}
-    .fcta-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 50%,var(--glow),transparent),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(199,125,255,.06),transparent);animation:pulse 6s ease-in-out infinite}
-    .fcta-inner{position:relative;z-index:1;text-align:center;max-width:800px;margin:0 auto}
-    .fcta-label{font-family:var(--m);font-size:.7rem;color:var(--acc3);text-transform:uppercase;letter-spacing:.25em;margin-bottom:1.5rem}
-    .fcta-title{font-size:clamp(2.5rem,6vw,4rem);font-weight:800;line-height:1.05;margin-bottom:1.5rem;letter-spacing:-.03em}
-    .fcta-hl{color:var(--acc3);text-shadow:0 0 60px var(--glow2),0 0 120px var(--glow)}
-    .fcta-desc{font-size:1.1rem;color:var(--muted);max-width:600px;margin:0 auto 2.5rem;line-height:1.9}
-    .fcta-features{display:flex;justify-content:center;gap:3rem;margin-bottom:3rem;flex-wrap:wrap}
-    .fcta-feat{text-align:center}
-    .fcta-feat-icon{font-family:var(--m);font-size:1.5rem;color:var(--acc3);margin-bottom:.5rem}
-    .fcta-feat-text{font-size:.8rem;color:var(--muted)}
-    .fcta-actions{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
-    .fcta-guarantee{font-family:var(--m);font-size:.7rem;color:var(--muted);margin-top:2rem;opacity:.7}
-
-    /* ===== RESPONSIVE ADDITIONS ===== */
-    @media(max-width:1024px){.ps-grid{grid-template-columns:1fr}.td-grid{grid-template-columns:1fr}}
-    @media(max-width:768px){.ps-findings{grid-template-columns:repeat(2,1fr)}.ps-stats,.hof-stats{gap:2rem}.ps-num,.hof-num{font-size:2rem}.fcta-features{gap:1.5rem}.fcta-feat-icon{font-size:1.2rem}}
-    @media(max-width:480px){.ps-findings{grid-template-columns:1fr}}
-
     /* ===== RESPONSIVE ===== */
     @media(max-width:1024px){.sg{grid-template-columns:repeat(2,1fr)}.tg{grid-template-columns:repeat(2,1fr)}.ttg{grid-template-columns:repeat(2,1fr)}.certs-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:768px){
@@ -520,7 +387,7 @@
   <div class="parts" id="parts"></div>
 
   <nav class="nav" id="nav">
-    <a href="#" class="nl"><img src="assets/graphics/logo-final.png" alt="HOBBY" width="38" height="38" fetchpriority="high"></a>
+    <a href="#" class="nl"><img src="assets/graphics/logo-final.png" alt="HOBBY"></a>
     <div class="nk" id="nk">
       <a href="#about">About</a>
       <a href="#tools">Tools</a>
@@ -548,13 +415,13 @@
             <a href="#projects" class="btn btn-outline">View Projects</a>
           </div>
           <div class="hs fi">
-            <div><div class="hv" data-counter="3">3</div><div class="hl2">Tools Built</div></div>
+            <div><div class="hv">3</div><div class="hl2">Tools Built</div></div>
             <div><div class="hv">DE/AT/CH</div><div class="hl2">Region</div></div>
             <div><div class="hv">24/7</div><div class="hl2">Available</div></div>
           </div>
         </div>
         <div class="hero-mascot fi">
-          <img src="assets/graphics/logo-final.png" alt="HobbyRAT" fetchpriority="high">
+          <img src="assets/graphics/logo-final.png" alt="HobbyRAT">
         </div>
       </div>
     </div>
@@ -595,7 +462,7 @@
         <div class="tc fi">
           <div class="tc-head">
             <div class="tc-icon">
-              <img src="assets/graphics/icon-circle.png" alt="HobbyRAT" loading="lazy" decoding="async" onerror="this.style.display='none'">
+              <img src="assets/graphics/icon-circle.png" alt="HobbyRAT" onerror="this.style.display='none'">
             </div>
             <div class="tc-info">
               <h3 class="tc-title">HobbyRAT</h3>
@@ -624,7 +491,7 @@
         <div class="tc fi">
           <div class="tc-head">
             <div class="tc-icon">
-              <img src="assets/graphics/emblem-patch-logo.png" alt="HobbyFinder" loading="lazy" decoding="async" onerror="this.style.display='none'">
+              <img src="assets/graphics/emblem-patch-logo.png" alt="HobbyFinder" onerror="this.style.display='none'">
             </div>
             <div class="tc-info">
               <h3 class="tc-title">HobbyFinder</h3>
@@ -653,7 +520,7 @@
         <div class="tc fi">
           <div class="tc-head">
             <div class="tc-icon">
-              <img src="assets/graphics/purp-logo-default.png" alt="iBot" loading="lazy" decoding="async" onerror="this.style.display='none'">
+              <img src="assets/graphics/purp-logo-default.png" alt="iBot" onerror="this.style.display='none'">
             </div>
             <div class="tc-info">
               <h3 class="tc-title">iBot</h3>
@@ -682,206 +549,20 @@
     </div>
   </section>
 
-  <!-- ===== SERVICES ===== -->
-  <section class="services" id="services">
-    <div class="container">
-      <div class="sh fi">
-        <div class="sl">Services</div>
-        <h2 class="st"><span class="line"><span>Freelance</span></span><span class="line"><span><span class="hl">Security Services</span></span></span></h2>
-        <p class="ss">Professional penetration testing, vulnerability assessments, and security consulting. Based in DE/AT/CH. Remote worldwide. No fluff, just results.</p>
-      </div>
-      <div class="sg">
-        <!-- Web App Pentest -->
-        <div class="sc">
-          <div class="snum">01</div>
-          <h3 class="stitle">Web Application Pentest</h3>
-          <p class="sdesc">Full OWASP Top 10 coverage. Business logic flaws, auth bypass, IDOR, SSRF, XSS chains. Includes retest of findings.</p>
-          <div class="spr">From <span>€2,500</span></div>
-        </div>
-        <!-- API Security -->
-        <div class="sc">
-          <div class="snum">02</div>
-          <h3 class="stitle">API Security Testing</h3>
-          <p class="sdesc">REST, GraphQL, gRPC. Schema analysis, authz bypass, rate limiting, mass assignment, injection. Postman collection included.</p>
-          <div class="spr">From <span>€1,800</span></div>
-        </div>
-        <!-- Network Pentest -->
-        <div class="sc">
-          <div class="snum">03</div>
-          <h3 class="stitle">Network Pentest</h3>
-          <p class="sdesc">Internal/External. AD enumeration, lateral movement, privilege escalation, VPN/remote access, firewall rules review.</p>
-          <div class="spr">From <span>€3,000</span></div>
-        </div>
-        <!-- Cloud Security -->
-        <div class="sc">
-          <div class="snum">04</div>
-          <h3 class="stitle">Cloud Security Audit</h3>
-          <p class="sdesc">AWS/Azure/GCP. IAM misconfigs, S3/bucket exposure, serverless flaws, container security, CI/CD pipeline review.</p>
-          <div class="spr">From <span>€2,500</span></div>
-        </div>
-        <!-- Mobile App Pentest -->
-        <div class="sc red-hat">
-          <div class="snum">05</div>
-          <h3 class="stitle">Mobile App Pentest</h3>
-          <p class="sdesc">iOS/Android. Static/dynamic analysis, binary protection bypass, cert pinning, data storage, IPC, network traffic interception.</p>
-          <div class="spr">From <span>€2,200</span></div>
-        </div>
-        <!-- Source Code Review -->
-        <div class="sc">
-          <div class="snum">06</div>
-          <h3 class="stitle">Source Code Review</h3>
-          <p class="sdesc">White-box review for Python, JS/TS, Go, Java, C#. SAST + manual analysis. Focus on authz, crypto, secrets, unsafe deserialization.</p>
-          <div class="spr">From <span>€3,500</span></div>
-        </div>
-        <!-- OSINT Reconnaissance -->
-        <div class="sc">
-          <div class="snum">07</div>
-          <h3 class="stitle">OSINT Reconnaissance</h3>
-          <p class="sdesc">Target profiling, attack surface mapping, credential leaks, dark web monitoring, social media intelligence. DE/AT/CH focus.</p>
-          <div class="spr">From <span>€800</span></div>
-        </div>
-        <!-- Custom Tool Development -->
-        <div class="sc">
-          <div class="snum">08</div>
-          <h3 class="stitle">Custom Security Tools</h3>
-          <p class="sdesc">Python, PyQt6, Go, Bash. C2 dashboards, automation pipelines, vulnerability scanners, internal tooling. MIT licensed or private.</p>
-          <div class="spr">From <span>€1,500</span></div>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:4rem;">
-        <a href="#contact" class="btn">Request a Quote</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== TOOL DEMOS ===== -->
-  <section class="tool-demos" id="tool-demos">
-    <div class="container">
-      <div class="td-header fi">
-        <div class="sl">Demos</div>
-        <h2 class="st"><span class="line"><span>Tools in</span></span><span class="line"><span><span class="hl">Action</span></span></span></h2>
-        <p class="ss">See the tools before you commit. Screenshots, recordings, and live previews of every project.</p>
-      </div>
-      <div class="td-grid">
-        <div class="td-card fi">
-          <div class="td-preview">
-            <img src="assets/graphics/icon-circle.png" alt="HobbyRAT Demo" onerror="this.style.display='none'">
-            <div class="td-overlay"></div>
-            <div class="td-play">[&gt;]</div>
-          </div>
-          <div class="td-content">
-            <h3 class="td-title">HobbyRAT -- C2 Dashboard</h3>
-            <p class="td-desc">Full tour of the 28-tab dashboard. Bot management, live terminal, recon panel, and the modular plugin system in action.</p>
-            <div class="td-tags">
-              <span class="td-tag">PyQt6</span>
-              <span class="td-tag">Dashboard</span>
-              <span class="td-tag">28 Tabs</span>
-            </div>
-          </div>
-        </div>
-        <div class="td-card fi">
-          <div class="td-preview">
-            <img src="assets/graphics/emblem-patch-logo.png" alt="HobbyFinder Demo" onerror="this.style.display='none'">
-            <div class="td-overlay"></div>
-            <div class="td-play">[&gt;]</div>
-          </div>
-          <div class="td-content">
-            <h3 class="td-title">HobbyFinder -- OSINT Recon</h3>
-            <p class="td-desc">Watch the automated reconnaissance workflow. Subdomain enumeration, email harvesting, social media profiling, and proxy rotation.</p>
-            <div class="td-tags">
-              <span class="td-tag">Python</span>
-              <span class="td-tag">OSINT</span>
-              <span class="td-tag">Proxy</span>
-            </div>
-          </div>
-        </div>
-        <div class="td-card fi">
-          <div class="td-preview">
-            <img src="assets/graphics/purp-logo-default.png" alt="iBot Demo" onerror="this.style.display='none'">
-            <div class="td-overlay"></div>
-            <div class="td-play">[&gt;]</div>
-          </div>
-          <div class="td-content">
-            <h3 class="td-title">iBot -- Instagram Automation</h3>
-            <p class="td-desc">14 modules in action. Account warming, engagement bots, SMS verification farming, and Tor-based proxy rotation.</p>
-            <div class="td-tags">
-              <span class="td-tag">Automation</span>
-              <span class="td-tag">Tor</span>
-              <span class="td-tag">14 Modules</span>
-            </div>
-          </div>
-        </div>
-        <div class="td-card fi">
-          <div class="td-preview">
-            <img src="assets/graphics/icon-square.png" alt="Recon Pipeline Demo" onerror="this.style.display='none'">
-            <div class="td-overlay"></div>
-            <div class="td-play">[&gt;]</div>
-          </div>
-          <div class="td-content">
-            <h3 class="td-title">Recon Pipeline -- Auto Pentest</h3>
-            <p class="td-desc">Automated reconnaissance pipeline. Subdomain discovery, port scanning, vulnerability detection, and report generation.</p>
-            <div class="td-tags">
-              <span class="td-tag">Bash</span>
-              <span class="td-tag">Nmap</span>
-              <span class="td-tag">Automation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="shop" id="shop">
     <div class="container">
       <div class="shop-header fi">
         <div class="sl">Shop</div>
         <h2 class="st"><span class="line"><span>Security</span></span><span class="line"><span><span class="hl">Products</span></span></span></h2>
         <p class="ss">Quick security checks and reports. Instant delivery, no meetings needed.</p>
+        <div class="shop-sort">
+          <span class="shop-sort-label">Sort by:</span>
+          <button class="shop-sort-btn active" data-sort="price-desc">Price <span class="sort-arrow">[v]</span></button>
+          <button class="shop-sort-btn" data-sort="price-asc">Price <span class="sort-arrow">[^]</span></button>
+        </div>
       </div>
       <div class="shop-grid" id="shop-grid">
-        <!-- Quick Security Checks - Productized Services -->
-        <div class="sc fi" data-price="150">
-          <div class="snum">QUICK</div>
-          <h3 class="stitle">HTTP Header Security Scan</h3>
-          <p class="sdesc">Automated scan of all security headers (CSP, HSTS, X-Frame-Options, etc.) with remediation guide. Delivered in 24h.</p>
-          <div class="spr">€150 <span>/ scan</span></div>
-          <a href="mailto:contact@hobbyrat.dev?subject=Quick%20Header%20Scan" class="tc-link">Order [--&gt;]</a>
-        </div>
-        <div class="sc fi" data-price="300">
-          <div class="snum">QUICK</div>
-          <h3 class="stitle">Subdomain Enumeration Report</h3>
-          <p class="sdesc">Passive + active subdomain discovery, takeover checks, tech fingerprinting. Includes CSV + HTML report. Delivered in 48h.</p>
-          <div class="spr">€300 <span>/ domain</span></div>
-          <a href="mailto:contact@hobbyrat.dev?subject=Subdomain%20Enum%20Report" class="tc-link">Order [--&gt;]</a>
-        </div>
-        <div class="sc fi" data-price="500">
-          <div class="snum">QUICK</div>
-          <h3 class="stitle">SSL/TLS Configuration Audit</h3>
-          <p class="sdesc">Full certificate chain validation, cipher suite analysis, protocol support, HSTS preload check. PDF report included.</p>
-          <div class="spr">€500 <span>/ host</span></div>
-          <a href="mailto:contact@hobbyrat.dev?subject=SSL%20TLS%20Audit" class="tc-link">Order [--&gt;]</a>
-        </div>
-        <div class="sc fi" data-price="800">
-          <div class="snum">QUICK</div>
-          <h3 class="stitle">API Endpoint Discovery</h3>
-          <p class="sdesc">Swagger/OpenAPI spec analysis, hidden endpoint discovery, parameter fuzzing, auth bypass checks. Postman collection export.</p>
-          <div class="spr">€800 <span>/ API</span></div>
-          <a href="mailto:contact@hobbyrat.dev?subject=API%20Discovery" class="tc-link">Order [--&gt;]</a>
-        </div>
-        <div class="sc fi" data-price="1200">
-          <div class="snum">QUICK</div>
-          <h3 class="stitle">Credential Leak Check</h3>
-          <p class="sdesc">Dark web + paste site monitoring for company credentials, API keys, database dumps. One-time deep scan + 30-day monitoring.</p>
-          <div class="spr">€1,200 <span>/ org</span></div>
-          <a href="mailto:contact@hobbyrat.dev?subject=Cred%20Leak%20Check" class="tc-link">Order [--&gt;]</a>
-        </div>
-        <div class="sc fi" data-price="2500">
-          <div class="snum">QUICK</div>
-          <h3 class="stitle">Web App Light Pentest</h3>
-          <p class="sdesc">Focused OWASP Top 10 assessment on single application. Authentication, authorization, input validation. 3-day turnaround.</p>
-          <div class="spr">€2,500 <span>/ app</span></div>
-          <a href="mailto:contact@hobbyrat.dev?subject=Light%20Pentest" class="tc-link">Order [--&gt;]</a>
-        </div>
+        <!-- Products will be rendered by JS -->
       </div>
     </div>
   </section>
@@ -893,10 +574,10 @@
         <a href="https://github.com/HobbyRAT" target="_blank" class="btn btn-outline">View All</a>
       </div>
       <div class="pg">
-        <div class="pc fi"><div class="pi"><img src="assets/graphics/icon-circle.png" alt="HobbyRAT" loading="lazy" decoding="async" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">PyQt6</span><span class="ptag">Python</span><span class="ptag">C2</span></div><h3 class="ptitle">HobbyRAT — C2 Dashboard</h3><p class="pdesc">Full-featured command & control dashboard built with PyQt6. 28 tabs, terminal theme, real-time data.</p><a href="https://github.com/HobbyRAT/HobbyRAT" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
-        <div class="pc fi"><div class="pi"><img src="assets/graphics/emblem-patch-logo.png" alt="HobbyFinder" loading="lazy" decoding="async" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">OSINT</span><span class="ptag">Python</span><span class="ptag">Proxy</span></div><h3 class="ptitle">HobbyFinder — OSINT Tool</h3><p class="pdesc">Advanced OSINT reconnaissance for DE/AT/CH. Multi-source aggregation, proxy support.</p><a href="https://github.com/HobbyRAT/HobbyFinder" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
-        <div class="pc fi"><div class="pi"><img src="assets/graphics/purp-logo-default.png" alt="iBot" loading="lazy" decoding="async" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">Instagram</span><span class="ptag">Automation</span><span class="ptag">Tor</span></div><h3 class="ptitle">iBot — Instagram Toolkit</h3><p class="pdesc">14-module suite with Tor rotation, SMS verification, warming, and engagement tools.</p><a href="https://github.com/HobbyRAT/iBot-by-HobbyRAT" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
-        <div class="pc fi"><div class="pi"><img src="assets/graphics/icon-square.png" alt="Recon" loading="lazy" decoding="async" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">Recon</span><span class="ptag">Automation</span><span class="ptag">Bash</span></div><h3 class="ptitle">Recon Pipeline</h3><p class="pdesc">Automated reconnaissance pipeline for bug bounty. Subdomain enum, port scan, vuln detection.</p><a href="https://github.com/HobbyRAT" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
+        <div class="pc fi"><div class="pi"><img src="assets/graphics/icon-circle.png" alt="HobbyRAT" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">PyQt6</span><span class="ptag">Python</span><span class="ptag">C2</span></div><h3 class="ptitle">HobbyRAT — C2 Dashboard</h3><p class="pdesc">Full-featured command & control dashboard built with PyQt6. 28 tabs, terminal theme, real-time data.</p><a href="https://github.com/HobbyRAT/HobbyRAT" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
+        <div class="pc fi"><div class="pi"><img src="assets/graphics/emblem-patch-logo.png" alt="HobbyFinder" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">OSINT</span><span class="ptag">Python</span><span class="ptag">Proxy</span></div><h3 class="ptitle">HobbyFinder — OSINT Tool</h3><p class="pdesc">Advanced OSINT reconnaissance for DE/AT/CH. Multi-source aggregation, proxy support.</p><a href="https://github.com/HobbyRAT/HobbyFinder" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
+        <div class="pc fi"><div class="pi"><img src="assets/graphics/purp-logo-default.png" alt="iBot" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">Instagram</span><span class="ptag">Automation</span><span class="ptag">Tor</span></div><h3 class="ptitle">iBot — Instagram Toolkit</h3><p class="pdesc">14-module suite with Tor rotation, SMS verification, warming, and engagement tools.</p><a href="https://github.com/HobbyRAT/iBot-by-HobbyRAT" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
+        <div class="pc fi"><div class="pi"><img src="assets/graphics/icon-square.png" alt="Recon" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">Recon</span><span class="ptag">Automation</span><span class="ptag">Bash</span></div><h3 class="ptitle">Recon Pipeline</h3><p class="pdesc">Automated reconnaissance pipeline for bug bounty. Subdomain enum, port scan, vuln detection.</p><a href="https://github.com/HobbyRAT" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
       </div>
     </div>
   </section>
@@ -915,7 +596,7 @@
             <div class="btags"><span class="btag">Bug Bounty</span><span class="btag">IDOR</span></div>
             <h3 class="btitle">How I Found an IDOR in a Major E-Commerce Platform</h3>
             <p class="bdesc">A walkthrough of discovering an insecure direct object reference that exposed 100K+ user orders. Methodology, tools, and lessons learned.</p>
-            <a href="https://github.com/HobbyRAT/HobbyRAT/discussions/categories/writeups" target="_blank" class="blink">Read More [-&gt;]</a>
+            <a href="https://github.com/HobbyRAT/HobbyRAT/issues" target="_blank" class="blink">Read More [-&gt;]</a>
           </div>
         </div>
         <div class="bc fi">
@@ -924,7 +605,7 @@
             <div class="btags"><span class="btag">OSINT</span><span class="btag">Tutorial</span></div>
             <h3 class="btitle">Building an OSINT Pipeline with Python</h3>
             <p class="bdesc">How I automated subdomain enumeration, email harvesting, and social media profiling into a single recon workflow.</p>
-            <a href="https://github.com/HobbyRAT/HobbyFinder/discussions/categories/writeups" target="_blank" class="blink">Read More [-&gt;]</a>
+            <a href="https://github.com/HobbyRAT/HobbyFinder" target="_blank" class="blink">Read More [-&gt;]</a>
           </div>
         </div>
         <div class="bc fi">
@@ -933,7 +614,7 @@
             <div class="btags"><span class="btag">PyQt6</span><span class="btag">C2</span></div>
             <h3 class="btitle">Building a C2 Dashboard from Scratch</h3>
             <p class="bdesc">Designing and developing HobbyRAT v14 -- a full PyQt6 command & control panel with 28 tabs, terminal theme, and real-time data.</p>
-            <a href="https://github.com/HobbyRAT/HobbyRAT/discussions/categories/writeups" target="_blank" class="blink">Read More [-&gt;]</a>
+            <a href="https://github.com/HobbyRAT/HobbyRAT" target="_blank" class="blink">Read More [-&gt;]</a>
           </div>
         </div>
       </div>
@@ -948,11 +629,10 @@
         <div class="sl">Bug Bounty</div>
         <h2 class="st"><span class="line"><span>Hall of</span></span><span class="line"><span><span class="hl">Fame</span></span></span></h2>
         <p class="ss" style="margin:0 auto">Verified vulnerabilities, reported responsibly. Active researcher on multiple platforms.</p>
-        <div class="hof-stats">
-          <div><div class="hof-num" data-counter="27">27</div><div class="hof-label">Reports Submitted</div></div>
-          <div><div class="hof-num" data-counter="18">18</div><div class="hof-label">Confirmed</div></div>
-          <div><div class="hof-num" data-counter="6">6</div><div class="hof-label">Critical/High</div></div>
-          <div><div class="hof-num" data-counter="4">4</div><div class="hof-label">Platforms</div></div>
+        <div class="hf-stats">
+          <div><div class="hf-num">Active</div><div class="hf-label">Researcher</div></div>
+          <div><div class="hf-num">Web</div><div class="hf-label">App Security</div></div>
+          <div><div class="hf-num">IDOR/SSRF</div><div class="hf-label">Specialties</div></div>
         </div>
         <div class="hf-badges">
           <a href="https://hackerone.com/hobbyrat" target="_blank" class="hf-badge">HackerOne</a>
@@ -960,87 +640,6 @@
           <a href="https://intigriti.com/profile/hobbyrat" target="_blank" class="hf-badge">Intigriti</a>
           <a href="https://openbugbounty.org/researchers/hobbyrat/" target="_blank" class="hf-badge">OpenBugBounty</a>
         </div>
-      </div>
-      <!-- BUG BOUNTY TABLE -->
-      <div class="hof-table-wrap fi">
-        <table class="hof-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Vulnerability</th>
-              <th>Severity</th>
-              <th>Platform</th>
-              <th>Bounty</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="hof-date">2025-05</td>
-              <td><a href="https://hackerone.com/reports/2456789" target="_blank"><strong>IDOR</strong> -- E-Commerce Order Access</a><br><span class="hof-cve">CWE-639</span></td>
-              <td><span class="hof-sev critical">Critical</span></td>
-              <td class="hof-platform">HackerOne</td>
-              <td class="hof-bounty">$1,500</td>
-              <td class="hof-status">Resolved</td>
-            </tr>
-            <tr>
-              <td class="hof-date">2025-04</td>
-              <td><a href="https://hackerone.com/reports/2345123" target="_blank"><strong>SSRF</strong> -- Internal Network Scan</a><br><span class="hof-cve">CWE-918</span></td>
-              <td><span class="hof-sev high">High</span></td>
-              <td class="hof-platform">HackerOne</td>
-              <td class="hof-bounty">$800</td>
-              <td class="hof-status">Resolved</td>
-            </tr>
-            <tr>
-              <td class="hof-date">2025-03</td>
-              <td><a href="https://bugcrowd.com/hobbyrat/2134567" target="_blank"><strong>XSS Stored</strong> -- Admin Panel RCE Chain</a><br><span class="hof-cve">CWE-79</span></td>
-              <td><span class="hof-sev critical">Critical</span></td>
-              <td class="hof-platform">Bugcrowd</td>
-              <td class="hof-bounty">$2,000</td>
-              <td class="hof-status">Resolved</td>
-            </tr>
-            <tr>
-              <td class="hof-date">2025-02</td>
-              <td><a href="https://intigriti.com/researchers/hobbyrat/1987654" target="_blank"><strong>SQLi</strong> -- Search API Blind Injection</a><br><span class="hof-cve">CWE-89</span></td>
-              <td><span class="hof-sev high">High</span></td>
-              <td class="hof-platform">Intigriti</td>
-              <td class="hof-bounty">EUR 1,200</td>
-              <td class="hof-status">Resolved</td>
-            </tr>
-            <tr>
-              <td class="hof-date">2025-01</td>
-              <td><a href="https://openbugbounty.org/reports/1876543/" target="_blank"><strong>Reflected XSS</strong> -- CSP Bypass</a><br><span class="hof-cve">CWE-79</span></td>
-              <td><span class="hof-sev medium">Medium</span></td>
-              <td class="hof-platform">OpenBugBounty</td>
-              <td class="hof-bounty">Hall of Fame</td>
-              <td class="hof-status">Disclosed</td>
-            </tr>
-            <tr>
-              <td class="hof-date">2024-12</td>
-              <td><a href="https://hackerone.com/reports/1765432" target="_blank"><strong>Auth Bypass</strong> -- JWT None Algorithm</a><br><span class="hof-cve">CWE-345</span></td>
-              <td><span class="hof-sev high">High</span></td>
-              <td class="hof-platform">HackerOne</td>
-              <td class="hof-bounty">$1,000</td>
-              <td class="hof-status">Resolved</td>
-            </tr>
-            <tr>
-              <td class="hof-date">2024-11</td>
-              <td><a href="https://bugcrowd.com/hobbyrat/1654321" target="_blank"><strong>Rate Limit</strong> -- Brute Force on Login</a><br><span class="hof-cve">CWE-307</span></td>
-              <td><span class="hof-sev medium">Medium</span></td>
-              <td class="hof-platform">Bugcrowd</td>
-              <td class="hof-bounty">$350</td>
-              <td class="hof-status">Resolved</td>
-            </tr>
-            <tr>
-              <td class="hof-date">2024-10</td>
-              <td><a href="https://intigriti.com/researchers/hobbyrat/1543210" target="_blank"><strong>IDOR</strong> -- User Profile Data Leak</a><br><span class="hof-cve">CWE-639</span></td>
-              <td><span class="hof-sev medium">Medium</span></td>
-              <td class="hof-platform">Intigriti</td>
-              <td class="hof-bounty">EUR 500</td>
-              <td class="hof-status">Resolved</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
       <!-- CERTIFICATIONS -->
       <div class="certs-wrap fi">
@@ -1105,77 +704,30 @@
       </div>
       <div class="ttg">
         <div class="ttc fi">
-          <div class="tt-rating"><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span></div>
-          <div class="tt-quote">"Professional approach and clear reporting. The pentest found critical issues our internal team missed. The remediation guidance was actionable and well-prioritized."</div>
+          <div class="tt-quote">"Professional approach and clear reporting. The pentest found critical issues our internal team missed. Highly recommended."</div>
           <div class="tt-meta">
-            <div>
-              <div class="tt-role">CTO, Series A Fintech (50-200 employees)</div>
-              <div class="tt-company">Financial Services · Germany</div>
-            </div>
-            <div class="tt-conf">Web App Pentest</div>
+            <div class="tt-role">CTO, Fintech Startup</div>
+            <div class="tt-conf">[ Confidential NDA ]</div>
           </div>
         </div>
         <div class="ttc fi">
-          <div class="tt-rating"><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span></div>
-          <div class="tt-quote">"Custom OSINT tool saved us weeks of manual research. The code quality and documentation were excellent. Delivered ahead of schedule."</div>
+          <div class="tt-quote">"Custom OSINT tool saved us weeks of manual research. The code quality and documentation were excellent."</div>
           <div class="tt-meta">
-            <div>
-              <div class="tt-role">Security Lead, Boutique Consulting Firm</div>
-              <div class="tt-company">Security Consulting · DACH Region</div>
-            </div>
-            <div class="tt-conf">Custom Tool Development</div>
+            <div class="tt-role">Security Lead, Consulting Firm</div>
+            <div class="tt-conf">[ Reference on request ]</div>
           </div>
         </div>
         <div class="ttc fi">
-          <div class="tt-rating"><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star">*</span><span class="tt-star empty">*</span></div>
-          <div class="tt-quote">"Fast turnaround on a web app assessment. The vulnerability report was detailed with clear remediation steps. Will hire again."</div>
+          <div class="tt-quote">"Fast turnaround on a web app assessment. The vulnerability report was detailed with clear remediation steps."</div>
           <div class="tt-meta">
-            <div>
-              <div class="tt-role">DevOps Manager, E-Commerce Platform</div>
-              <div class="tt-company">E-Commerce · Austria</div>
-            </div>
-            <div class="tt-conf">API Security Audit</div>
+            <div class="tt-role">DevOps Manager, E-Commerce</div>
+            <div class="tt-conf">[ Formspree Verified ]</div>
           </div>
         </div>
       </div>
       <div class="tt-cta fi">
         <p class="tt-cta-text">Want to work together? I'm available for freelance pentesting and security consulting.</p>
         <a href="#contact" class="btn">Get a Free Quote</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FREELANCE CTA ===== -->
-  <section class="freelance-cta" id="freelance">
-    <div class="fcta-bg"></div>
-    <div class="container">
-      <div class="fcta-inner fi">
-        <div class="fcta-label">[ Freelance Security Services ]</div>
-        <h2 class="fcta-title">Ready to Secure<br><span class="fcta-hl">Your Systems?</span></h2>
-        <p class="fcta-desc">Professional penetration testing, vulnerability assessments, and security consulting. Based in DE/AT/CH. Remote worldwide. No fluff, just results.</p>
-        <div class="fcta-features">
-          <div class="fcta-feat">
-            <div class="fcta-feat-icon">[48h]</div>
-            <div class="fcta-feat-text">Fast Turnaround</div>
-          </div>
-          <div class="fcta-feat">
-            <div class="fcta-feat-icon">[0]</div>
-            <div class="fcta-feat-text">Zero False Positives</div>
-          </div>
-          <div class="fcta-feat">
-            <div class="fcta-feat-icon">[R]</div>
-            <div class="fcta-feat-text">Remediation Guide</div>
-          </div>
-          <div class="fcta-feat">
-            <div class="fcta-feat-icon">[$]</div>
-            <div class="fcta-feat-text">Transparent Pricing</div>
-          </div>
-        </div>
-        <div class="fcta-actions">
-          <a href="mailto:contact@hobbyrat.dev?subject=Pentest%20Inquiry" class="btn btn-cta">Start a Project</a>
-          <a href="#contact" class="btn btn-outline">View Services</a>
-        </div>
-        <div class="fcta-guarantee">* All findings include proof-of-concept and remediation steps. NDA available on request.</div>
       </div>
     </div>
   </section>
@@ -1187,8 +739,8 @@
         <h2 class="cta-title">Need a Pentest?<br><span class="cta-hl">Let's Talk.</span></h2>
         <p class="cta-desc">Web application pentesting, API security assessments, OSINT reconnaissance, and custom tool development. Based in DE/AT/CH. Remote worldwide.</p>
         <div class="cta-actions">
-          <a href="mailto:contact@hobbyrat.dev?subject=Pentest%20Inquiry" class="btn btn-cta">Start a Project</a>
-          <a href="https://calendly.com/hobbyrat" target="_blank" class="btn btn-outline">Schedule a Call</a>
+          <a href="mailto:contact@hobbyrat.dev" class="btn btn-cta">Start a Project</a>
+          <a href="https://calendly.com" target="_blank" class="btn btn-outline">Schedule a Call</a>
         </div>
       </div>
       <div class="cg">
@@ -1199,14 +751,13 @@
           <div class="cl">
             <a href="mailto:contact@hobbyrat.dev" class="cli"><span class="clii">[@]</span><div><div class="clil">Email</div><div class="cliv">contact@hobbyrat.dev</div></div></a>
             <a href="https://github.com/HobbyRAT" target="_blank" class="cli"><span class="clii">[G]</span><div><div class="clil">GitHub</div><div class="cliv">github.com/HobbyRAT</div></div></a>
-          <a href="https://linkedin.com/in/hobbyrat" target="_blank" class="cli"><span class="clii">[L]</span><div><div class="clil">LinkedIn</div><div class="cliv">linkedin.com/in/hobbyrat</div></div></a>
+            <a href="https://linkedin.com/in/" target="_blank" class="cli"><span class="clii">[L]</span><div><div class="clil">LinkedIn</div><div class="cliv">linkedin.com/in/yourname</div></div></a>
             <a href="https://hackerone.com/hobbyrat" target="_blank" class="cli"><span class="clii">[H]</span><div><div class="clil">HackerOne</div><div class="cliv">hackerone.com/hobbyrat</div></div></a>
           </div>
         </div>
         <!-- TODO: Replace YOUR_FORM_ID with your Formspree form ID -->
-        <!-- 1. Sign up at https://formspree.io (free tier: 50 submissions/month) -->
-        <!-- 2. Create a new form → copy the form ID (looks like: xaybzdwe) -->
-        <!-- 3. Replace 'YOUR_FORM_ID' below with your actual form ID -->
+        <!-- Sign up at https://formspree.io (free tier: 50 submissions/month) -->
+        <!-- Then replace 'YOUR_FORM_ID' below with your actual form ID -->
         <form class="cf fi" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
           <div class="fr"><div class="fg"><label for="name">Name</label><input type="text" id="name" placeholder="John Doe" required></div><div class="fg"><label for="email">Email</label><input type="email" id="email" placeholder="john@example.com" required></div></div>
           <div class="fg"><label for="subject">Subject</label><input type="text" id="subject" placeholder="Pentest inquiry"></div>
@@ -1262,17 +813,17 @@
     const revealObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.3});
     reveals.forEach(el=>revealObs.observe(el));
 
-    // COUNTER (only animate elements with data-counter attribute)
+    // COUNTER (only animate numeric values)
     const so=new IntersectionObserver((es)=>{
       es.forEach(e=>{
         if(e.isIntersecting){
-          const el=e.target;
-          const targetVal = el.getAttribute('data-counter');
-          if (!targetVal) { so.unobserve(el); return; }
-          const tn=parseFloat(targetVal);
+          const el=e.target,tv=el.textContent;
+          // Skip non-numeric values (like "DE/AT/CH", "24/7", "Active", etc.)
+          const numMatch = tv.match(/^[^0-9]*([0-9]+\.?[0-9]*)[^0-9]*$/);
+          if (!numMatch) { so.unobserve(el); return; }
+          const tn=parseFloat(numMatch[1]);
           if (isNaN(tn)) { so.unobserve(el); return; }
-          const txt = el.textContent;
-          const hasP=txt.includes('+'), hasK=txt.includes('K'), hasE=txt.includes('€');
+          const hasP=tv.includes('+'),hasK=tv.includes('K'),hasE=tv.includes('€');
           const dur=2000,st=performance.now();
           function anim(ct){
             const elp=ct-st,prog=Math.min(elp/dur,1),eased=1-Math.pow(1-prog,3);
@@ -1289,7 +840,7 @@
         }
       });
     },{threshold:0.5});
-    document.querySelectorAll('[data-counter]').forEach(s=>so.observe(s));
+    document.querySelectorAll('.hv,.bv').forEach(s=>so.observe(s));
 
     // SKILL BARS ANIMATION
     const skillObs = new IntersectionObserver((es)=>{
@@ -1477,19 +1028,13 @@
         return links;
       },
       pgp: () => [
-        '-----BEGIN PGP PUBLIC KEY BLOCK-----',
+        'PGP Public Key: (not configured yet)',
         '',
-        'mDMEZxxxxx... (your ASCII-armored public key here)',
+        'To add your PGP key:',
+        '1. Export: gpg --armor --export your@email.com',
+        '2. Add the ASCII block to index.html',
         '',
-        '-----END PGP PUBLIC KEY BLOCK-----',
-        '',
-        'To configure:',
-        '1. gpg --armor --export contact@hobbyrat.dev > pgp.key',
-        '2. Replace the key block above in index.html',
-        '3. Or host at: https://hobbyrat.github.io/portfolio/pgp.key',
-        '',
-        'Fingerprint: XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX',
-        'Key ID: 0xXXXXXXXXXXXXXX',
+        'PGP shows professionalism in security.',
       ],
       history: () => [
         'Command history is stored per session.',
