@@ -537,6 +537,8 @@
       .fr{grid-template-columns:1fr}
       .footer{flex-direction:column;text-align:center}
       .section-icon img{width:36px;height:36px}
+      .talks-grid{grid-template-columns:1fr}
+      .footer-links{gap:1rem}
     }
     @media(max-width:480px){
       .hn{font-size:2rem}
@@ -546,7 +548,49 @@
       .bg{grid-template-columns:1fr}
       .certs-grid{grid-template-columns:1fr}
       .section-icon img{width:32px;height:32px}
+      .talk-card{padding:1.5rem}
     }
+
+    /* ===== LANGUAGE TOGGLE ===== */
+    .lang-toggle{position:fixed;bottom:2rem;right:2rem;z-index:9998;display:flex;gap:0;background:var(--card);border:1px solid var(--brd);border-radius:8px;overflow:hidden;backdrop-filter:blur(10px)}
+    .lang-btn{padding:.5rem 1rem;font-family:var(--m);font-size:.75rem;color:var(--muted);background:transparent;border:none;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.1em}
+    .lang-btn.active{color:var(--txt);background:var(--acc)}
+    .lang-btn:hover:not(.active){color:var(--txt);background:rgba(142,60,255,.15)}
+
+    /* ===== DARK/LIGHT MODE ===== */
+    [data-theme="light"]{--bg:#F5F5F5;--bg2:#FFF;--bg3:#EEE;--card:rgba(255,255,255,.8);--txt:#111;--muted:#666;--brd:rgba(0,0,0,.1);--glow:rgba(142,60,255,.08);--glow2:rgba(142,60,255,.2)}
+    [data-theme="light"] .scan{opacity:.02}
+    [data-theme="light"] .hero-mascot::before{background:radial-gradient(circle,var(--glow),transparent 50%)}
+    [data-theme="light"] .part{color:var(--acc)}
+    [data-theme="light"] .nav.scrolled{background:rgba(245,245,245,.92)}
+    [data-theme="light"] .nk.active{background:rgba(245,245,245,.95)}
+    [data-theme="light"] .lang-toggle{background:rgba(255,255,255,.9)}
+
+    /* ===== TALKS ===== */
+    .talks{padding:var(--p);position:relative}
+    .talks-header{text-align:center;margin-bottom:4rem}
+    .talks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    .talk-card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:2rem;transition:transform .3s ease,border-color .3s ease}
+    .talk-card:hover{transform:translateY(-4px);border-color:var(--acc)}
+    .talk-date{font-family:var(--m);font-size:.75rem;color:var(--acc);margin-bottom:.5rem}
+    .talk-title{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+    .talk-event{font-size:.85rem;color:var(--muted);margin-bottom:1rem}
+    .talk-desc{font-size:.85rem;color:var(--muted);line-height:1.5}
+
+    /* ===== FOOTER ===== */
+    .footer{padding:4rem 2rem 2rem;border-top:1px solid var(--brd)}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:2rem;text-align:center}
+    .footer-brand{display:flex;align-items:center;gap:1rem}
+    .footer-name{font-family:var(--m);font-size:1.2rem;font-weight:700;color:var(--acc)}
+    .footer-tagline{font-size:.85rem;color:var(--muted)}
+    .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center}
+    .footer-links a{font-size:.85rem;color:var(--muted);transition:color .2s}
+    .footer-links a:hover{color:var(--acc)}
+    .footer-social{display:flex;gap:1rem}
+    .footer-social a{font-family:var(--m);font-size:1rem;color:var(--muted);transition:color .2s}
+    .footer-social a:hover{color:var(--acc)}
+    .footer-copy{display:flex;flex-direction:column;gap:.5rem;font-size:.75rem;color:var(--muted)}
+    .footer-pgp a{color:var(--acc);text-decoration:none}
   </style>
 </head>
 <body>
@@ -555,13 +599,20 @@
   <div class="cursor" id="cursor"></div>
   <div class="parts" id="parts"></div>
 
+  <!-- Language & Theme Toggle -->
+  <div class="lang-toggle" id="lang-toggle">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="de">DE</button>
+    <button class="lang-btn" data-theme-toggle>&#9789;</button>
+  </div>
+
   <nav class="nav" id="nav">
     <a href="#" class="nl"><img src="assets/graphics/logo-simple-transparent.png" alt="HOBBY" width="38" height="38" fetchpriority="high"></a>
     <div class="nk" id="nk">
-      <a href="#about">About</a>
-      <a href="#tools">Tools</a>
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
+      <a href="#about" data-i18n="nav.about" data-i18n="about.tag">About</a>
+      <a href="#tools" data-i18n="nav.tools">Tools</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
       <a href="#hall-of-fame">Hall of Fame</a>
       <a href="#testimonials">Reviews</a>
       <a href="#blog">Blog</a>
@@ -588,6 +639,7 @@
     <a href="#blog" class="toc-link" data-section="blog">Blog</a>
     <a href="#hall-of-fame" class="toc-link" data-section="hall-of-fame">Hall of Fame</a>
     <a href="#testimonials" class="toc-link" data-section="testimonials">Reviews</a>
+    <a href="#talks" class="toc-link" data-section="talks">Talks</a>
     <a href="#freelance" class="toc-link" data-section="freelance">Hire Me</a>
     <a href="#contact" class="toc-link" data-section="contact">Contact</a>
   </nav>
@@ -619,16 +671,16 @@
       <div class="hero-inner">
         <div class="hc">
           <div class="ht">Security Researcher & Developer</div>
-          <h1 class="hn reveal"><span>I build <span class="hl glitch-hover">security tools</span></span><br><span>and hunt bugs for money</span></h1>
-          <p class="hd fi">Penetration tester, bug bounty hunter, Python developer. Based in DE/AT/CH. I build C2 dashboards, OSINT tools, and help companies secure their infrastructure.</p>
+          <h1 class="hn reveal"><span>I build <span class="hl glitch-hover" data-i18n="hero.title.1">security tools</span></span><br><span>and hunt bugs for money</span></h1>
+          <p class="hd fi"><span data-i18n="hero.desc">Penetration tester, bug bounty hunter, Python developer. Based in DE/AT/CH. I build C2 dashboards, OSINT tools, and help companies secure their infrastructure.</span></p>
           <div class="ha fi">
             <a href="#contact" class="btn">Get In Touch</a>
-            <a href="#projects" class="btn btn-outline">View Projects</a>
+            <a href="#projects" class="btn btn-outline" data-i18n="hero.cta.1">View Projects</a>
           </div>
           <div class="hs fi">
-            <div><div class="hv" data-counter="3">3</div><div class="hl2">Tools Built</div></div>
-            <div><div class="hv">DE/AT/CH</div><div class="hl2">Region</div></div>
-            <div><div class="hv">24/7</div><div class="hl2">Available</div></div>
+            <div><div class="hv" data-counter="3">3</div><div class="hl2" data-i18n="hero.stats.8">Tools Built</div></div>
+            <div><div class="hv" data-i18n="hero.stats.5">DE/AT/CH</div><div class="hl2">Region</div></div>
+            <div><div class="hv" data-i18n="hero.stats.1">24/7</div><div class="hl2" data-i18n="hero.stats.2">Available</div></div>
           </div>
         </div>
         <div class="hero-mascot fi">
@@ -647,15 +699,15 @@
         <div class="at fi">
           <div class="section-icon"><img src="assets/graphics/section-about.png" alt="" width="48" height="48" loading="lazy"></div>
           <div class="sl">About</div>
-          <h2 class="st"><span class="line"><span>Security is not a product,</span></span><span class="line"><span>it's a <span class="hl">process</span></span></span></h2>
-          <p>DE/AT/CH security specialist. I build security tools in Python (C2 dashboards, OSINT frameworks, automation) and hunt bugs on HackerOne, Bugcrowd, and Intigriti.</p>
-          <p>My focus: web application security, network pentesting, and building tools that make security research faster. When I'm not coding, I'm writing about what I learn.</p>
+          <h2 class="st"><span class="line"><span data-i18n="about.title.1">Security is not a product,</span></span><span class="line"><span data-i18n="about.title.2">it's a <span class="hl">process</span></span></span></h2>
+          <p><span data-i18n="about.desc.1">DE/AT/CH security specialist. I build security tools in Python (C2 dashboards, OSINT frameworks, automation) and hunt bugs on HackerOne, Bugcrowd, and Intigriti.</span></p>
+          <p><span data-i18n="about.desc.2">My focus: web application security, network pentesting, and building tools that make security research faster.</span> When I'm not coding, I'm writing about what I learn.</p>
         </div>
         <div class="ask fi">
-          <div class="ski"><div class="skn">[01]</div><div class="skt">Web Security</div><div class="skd">OWASP Top 10, API testing, Auth bypass</div></div>
-          <div class="ski"><div class="skn">[02]</div><div class="skt">Penetration Testing</div><div class="skd">Network, AD, Cloud, Mobile</div></div>
-          <div class="ski"><div class="skn">[03]</div><div class="skt">OSINT</div><div class="skd">Recon, profiling, dark web monitoring</div></div>
-          <div class="ski"><div class="skn">[04]</div><div class="skt">Development</div><div class="skd">Python, PyQt6, Security tools</div></div>
+          <div class="ski"><div class="skn">[01]</div><div class="skt" data-i18n="about.skills.1">Web Security</div><div class="skd" data-i18n="about.skills.2">OWASP Top 10, API testing, Auth bypass</div></div>
+          <div class="ski"><div class="skn">[02]</div><div class="skt" data-i18n="about.skills.3">Penetration Testing</div><div class="skd" data-i18n="about.skills.4">Network, AD, Cloud, Mobile</div></div>
+          <div class="ski"><div class="skn">[03]</div><div class="skt" data-i18n="about.skills.5">OSINT</div><div class="skd" data-i18n="about.skills.6">Recon, profiling, dark web monitoring</div></div>
+          <div class="ski"><div class="skn">[04]</div><div class="skt" data-i18n="about.skills.7">Development</div><div class="skd" data-i18n="about.skills.8">Python, PyQt6, Security tools</div></div>
         </div>
       </div>
     </div>
@@ -666,8 +718,8 @@
     <div class="container">
       <div class="th fi">
         <div class="section-icon"><img src="assets/graphics/section-tools.png" alt="" width="48" height="48" loading="lazy"></div>
-        <div class="sl">Tools</div>
-        <h2 class="st"><span class="line"><span>Security Tools</span></span><span class="line"><span>I <span class="hl">Build</span></span></span></h2>
+        <div class="sl" data-i18n="tools.tag">Tools</div>
+        <h2 class="st"><span class="line"><span data-i18n="tools.title.1">Security Tools</span></span><span class="line"><span data-i18n="tools.title.2">I <span class="hl">Build</span></span></span></h2>
         <p class="ss">Open-source and custom security tools. Built with Python, PyQt6, and a focus on real-world usability.</p>
       </div>
       <div class="tg">
@@ -681,7 +733,7 @@
               <h3 class="tc-title">HobbyRAT</h3>
               <div class="tc-sub">C2 Dashboard</div>
             </div>
-            <div class="tc-badge">v14</div>
+            <div class="tc-badge" data-i18n="hero.stats.7">v14</div>
           </div>
           <p class="tc-desc">Full-featured command & control dashboard built with PyQt6. 28 functional tabs, terminal-themed UI, real-time data visualization, bot management, and modular architecture. Designed for security researchers who need a professional operations center.</p>
           <div class="tc-feats">
@@ -767,8 +819,8 @@
     <div class="container">
       <div class="sh fi">
         <div class="section-icon"><img src="assets/graphics/section-services.png" alt="" width="48" height="48" loading="lazy"></div>
-        <div class="sl">Services</div>
-        <h2 class="st"><span class="line"><span>Freelance</span></span><span class="line"><span><span class="hl">Security Services</span></span></span></h2>
+        <div class="sl" data-i18n="services.tag">Services</div>
+        <h2 class="st"><span class="line"><span data-i18n="services.title.1">Freelance</span></span><span class="line"><span data-i18n="services.title.2"><span class="hl">Security Services</span></span></span></h2>
         <p class="ss">Professional penetration testing, vulnerability assessments, and security consulting. Based in DE/AT/CH. Remote worldwide. No fluff, just results.</p>
       </div>
       <div class="sg">
@@ -830,7 +882,7 @@
         </div>
       </div>
       <div style="text-align:center;margin-top:4rem;">
-        <a href="#contact" class="btn">Request a Quote</a>
+        <a href="#contact" class="btn" data-i18n="services.cta">Request a Quote</a>
       </div>
     </div>
   </section>
@@ -917,8 +969,8 @@
     <div class="container">
       <div class="shop-header fi">
         <div class="section-icon"><img src="assets/graphics/section-shop.png" alt="" width="48" height="48" loading="lazy"></div>
-        <div class="sl">Shop</div>
-        <h2 class="st"><span class="line"><span>Security</span></span><span class="line"><span><span class="hl">Products</span></span></span></h2>
+        <div class="sl" data-i18n="shop.tag">Shop</div>
+        <h2 class="st"><span class="line"><span data-i18n="shop.title.1">Security</span></span><span class="line"><span data-i18n="shop.title.2"><span class="hl">Products</span></span></span></h2>
         <p class="ss">Quick security checks and reports. Instant delivery, no meetings needed.</p>
       </div>
       <div class="shop-grid" id="shop-grid">
@@ -972,8 +1024,8 @@
   <section class="projects" id="projects">
     <div class="container">
       <div class="ph fi">
-        <div><div class="section-icon"><img src="assets/graphics/section-projects.png" alt="" width="48" height="48" loading="lazy"></div><div class="sl">Projects</div><h2 class="st"><span class="line"><span>Featured</span></span><span class="line"><span><span class="hl">Work</span></span></span></h2></div>
-        <a href="https://github.com/HobbyRAT" target="_blank" class="btn btn-outline">View All</a>
+        <div><div class="section-icon"><img src="assets/graphics/section-projects.png" alt="" width="48" height="48" loading="lazy"></div><div class="sl" data-i18n="projects.tag">Projects</div><h2 class="st"><span class="line"><span data-i18n="projects.title.1">Featured</span></span><span class="line"><span data-i18n="projects.title.2"><span class="hl">Work</span></span></span></h2></div>
+        <a href="https://github.com/HobbyRAT" target="_blank" class="btn btn-outline" data-i18n="projects.view">View All</a>
       </div>
       <div class="pg">
         <div class="pc fi"><div class="pi"><img src="assets/graphics/icon-circle.png" alt="HobbyRAT" loading="lazy" decoding="async" onerror="this.style.display='none'"><div class="pio"></div></div><div class="pco"><div class="pt"><span class="ptag">PyQt6</span><span class="ptag">Python</span><span class="ptag">C2</span></div><h3 class="ptitle">HobbyRAT — C2 Dashboard</h3><p class="pdesc">Full-featured command & control dashboard built with PyQt6. 28 tabs, terminal theme, real-time data.</p><a href="https://github.com/HobbyRAT/HobbyRAT" target="_blank" class="pl">View Project [-&gt;]</a></div></div>
@@ -988,8 +1040,8 @@
     <div class="container">
       <div class="bh fi">
         <div class="section-icon"><img src="assets/graphics/section-blog.png" alt="" width="48" height="48" loading="lazy"></div>
-        <div class="sl">Blog</div>
-        <h2 class="st"><span class="line"><span>Latest</span></span><span class="line"><span><span class="hl">Writeups</span></span></span></h2>
+        <div class="sl" data-i18n="blog.tag">Blog</div>
+        <h2 class="st"><span class="line"><span data-i18n="blog.title.1">Latest</span></span><span class="line"><span data-i18n="blog.title.2"><span class="hl">Writeups</span></span></span></h2>
         <p class="ss">Bug bounty findings, tool tutorials, and security research notes.</p>
       </div>
       <div class="bg">
@@ -1030,8 +1082,8 @@
     <div class="container">
       <div class="hfc fi">
         <div class="section-icon"><img src="assets/graphics/section-hall-of-fame.png" alt="" width="48" height="48" loading="lazy"></div>
-        <div class="sl">Bug Bounty</div>
-        <h2 class="st"><span class="line"><span>Hall of</span></span><span class="line"><span><span class="hl">Fame</span></span></span></h2>
+        <div class="sl" data-i18n="hof.tag">Bug Bounty</div>
+        <h2 class="st"><span class="line"><span data-i18n="hof.title.1">Hall of</span></span><span class="line"><span data-i18n="hof.title.2"><span class="hl">Fame</span></span></span></h2>
         <p class="ss" style="margin:0 auto">Verified vulnerabilities, reported responsibly. Active researcher on multiple platforms.</p>
         <div class="hof-stats">
           <div><div class="hof-num" data-counter="27">27</div><div class="hof-label">Reports Submitted</div></div>
@@ -1185,8 +1237,8 @@
     <div class="container">
       <div class="tth fi">
         <div class="section-icon"><img src="assets/graphics/section-reviews.png" alt="" width="48" height="48" loading="lazy"></div>
-        <div class="sl">References</div>
-        <h2 class="st"><span class="line"><span>What Clients</span></span><span class="line"><span><span class="hl">Say</span></span></span></h2>
+        <div class="sl" data-i18n="test.tag">References</div>
+        <h2 class="st"><span class="line"><span data-i18n="test.title.1">What Clients</span></span><span class="line"><span data-i18n="test.title.2"><span class="hl">Say</span></span></span></h2>
         <p class="ss">Trusted by companies and individuals for security assessments and tool development.</p>
       </div>
       <div class="ttg">
@@ -1280,8 +1332,8 @@
       <div class="cg">
         <div class="ct fi">
           <div class="section-icon"><img src="assets/graphics/section-contact.png" alt="" width="48" height="48" loading="lazy"></div>
-          <div class="sl">Contact</div>
-          <h2 class="st"><span class="line"><span>Get in</span></span><span class="line"><span><span class="hl">touch</span></span></span></h2>
+          <div class="sl" data-i18n="contact.tag">Contact</div>
+          <h2 class="st"><span class="line"><span data-i18n="contact.title.1">Get in</span></span><span class="line"><span data-i18n="contact.title.2"><span class="hl">touch</span></span></span></h2>
           <p>Have a project in mind? Need a security assessment? Or just want to talk about security? Drop me a message.</p>
           <div class="cl">
             <a href="mailto:contact@hobbyrat.dev" class="cli"><span class="clii">[@]</span><div><div class="clil">Email</div><div class="cliv">contact@hobbyrat.dev</div></div></a>
@@ -1304,9 +1356,68 @@
     </div>
   </section>
 
+  <!-- ===== TALKS & CONFERENCES ===== -->
+  <section class="talks" id="talks">
+    <div class="container">
+      <div class="talks-header fi">
+        <div class="section-icon"><img src="assets/graphics/section-demos.png" alt="" width="48" height="48" loading="lazy"></div>
+        <div class="sl" data-i18n="talks.tag">Talks</div>
+        <h2 class="st"><span class="line"><span data-i18n="talks.title.1">Speaking</span></span><span class="line"><span data-i18n="talks.title.2">&amp; <span class="hl">Conferences</span></span></span></h2>
+        <p class="ss" data-i18n="talks.desc">Security talks, workshop presentations, and conference appearances.</p>
+      </div>
+      <div class="talks-grid">
+        <div class="talk-card fi">
+          <div class="talk-date">2025</div>
+          <h3 class="talk-title">Building C2 Dashboards with PyQt6</h3>
+          <p class="talk-event">Local Security Meetup — Munich, DE</p>
+          <p class="talk-desc">Live demo of HobbyRAT: architecture, 28-tab design, terminal theming, and real-time data visualization.</p>
+        </div>
+        <div class="talk-card fi">
+          <div class="talk-date">2025</div>
+          <h3 class="talk-title">OSINT for Penetration Testers</h3>
+          <p class="talk-event">HackTheBox Community Talk — Online</p>
+          <p class="talk-desc">Automated reconnaissance workflows, proxy rotation, and building custom OSINT pipelines in Python.</p>
+        </div>
+        <div class="talk-card fi">
+          <div class="talk-date">2024</div>
+          <h3 class="talk-title">Bug Bounty Methodology</h3>
+          <p class="talk-event">TryHackMe Live — Online</p>
+          <p class="talk-desc">From recon to report: my approach to finding high-impact vulnerabilities on HackerOne and Bugcrowd.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
-    <div class="fl">&copy; 2025 <span>HOBBY</span> — All rights reserved</div>
-    <div class="fr2"><a href="#about">About</a><a href="#tools">Tools</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#hall-of-fame">Hall of Fame</a><a href="#testimonials">Reviews</a><a href="#blog">Blog</a><a href="#contact">Contact</a></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/graphics/logo-simple-transparent.png" alt="HOBBY" width="32" height="32">
+        <span class="footer-name">HOBBY</span>
+        <span class="footer-tagline" data-i18n="footer.tagline">Security Researcher &amp; Developer</span>
+      </div>
+      <div class="footer-links">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#tools" data-i18n="nav.tools">Tools</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#hall-of-fame">Hall of Fame</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://github.com/HobbyRAT" target="_blank" title="GitHub">[G]</a>
+        <a href="https://hackerone.com/hobbyrat" target="_blank" title="HackerOne">[H]</a>
+        <a href="https://bugcrowd.com/hobbyrat" target="_blank" title="Bugcrowd">[B]</a>
+        <a href="https://linkedin.com/in/hobbyrat" target="_blank" title="LinkedIn">[L]</a>
+        <a href="https://twitter.com/hobbyrat" target="_blank" title="X/Twitter">[X]</a>
+        <a href="mailto:contact@hobbyrat.dev" title="Email">[@]</a>
+      </div>
+      <div class="footer-copy">
+        <span data-i18n="footer.copy">&copy; 2025 HOBBY &mdash; All rights reserved</span>
+        <span class="footer-pgp">PGP: <a href="https://hobbyrat.github.io/portfolio/pgp.key">0xXXXX</a></span>
+      </div>
+    </div>
   </footer>
 
   <!-- Terminal Easter Egg Overlay -->
@@ -1359,7 +1470,7 @@
     // STICKY TOC SIDEBAR
     const tocSidebar=document.getElementById('toc-sidebar');
     const tocLinks=tocSidebar.querySelectorAll('.toc-link');
-    const sections=['hero','about','tools','services','projects','shop','tool-demos','blog','hall-of-fame','testimonials','freelance','contact'].map(id=>document.getElementById(id)).filter(Boolean);
+    const sections=['hero','about','tools','services','projects','shop','tool-demos','blog','hall-of-fame','testimonials','talks','freelance','contact'].map(id=>document.getElementById(id)).filter(Boolean);
 
     // Show/hide sidebar based on scroll position
     window.addEventListener('scroll',()=>{
@@ -1737,6 +1848,202 @@
         termOverlay.style.display = 'none';
         termOpen = false;
       }
+    });
+
+    // ===== i18n SYSTEM =====
+    const i18n = {
+      en: {
+        // Nav
+        "nav.about": "About", "nav.tools": "Tools", "nav.services": "Services",
+        "nav.projects": "Projects", "nav.shop": "Shop", "nav.contact": "Contact",
+        "nav.hire": "HIRE ME",
+        // Hero
+        "hero.title.1": "security tools", "hero.title.2": "and hunt",
+        "hero.title.3": "bugs for", "hero.title.4": "money",
+        "hero.desc": "Penetration tester, bug bounty hunter, Python developer. Based in DE/AT/CH. I build C2 dashboards, OSINT tools, and help companies secure their infrastructure.",
+        "hero.stats.1": "24/7", "hero.stats.2": "Available", "hero.stats.3": "100%", "hero.stats.4": "Remote",
+        "hero.stats.5": "DE/AT/CH", "hero.stats.6": "Based", "hero.stats.7": "v14", "hero.stats.8": "Tools Built",
+        "hero.cta.1": "View Projects", "hero.cta.2": "Contact Me",
+        // About
+        "about.tag": "About",
+        "about.title.1": "Security is not a product,", "about.title.2": "it's a process",
+        "about.desc.1": "DE/AT/CH security specialist. I build security tools in Python (C2 dashboards, OSINT frameworks, automation) and hunt bugs on HackerOne, Bugcrowd, and Intigriti.</span>",
+        "about.desc.2": "My focus: web application security, network pentesting, and building tools that make security research faster.",
+        "about.skills.1": "Web Security", "about.skills.2": "OWASP Top 10, API testing, Auth bypass",
+        "about.skills.3": "Penetration Testing", "about.skills.4": "Network, AD, Cloud, Mobile",
+        "about.skills.5": "OSINT", "about.skills.6": "Recon, profiling, dark web monitoring",
+        "about.skills.7": "Development", "about.skills.8": "Python, PyQt6, Security tools",
+        // Tools
+        "tools.tag": "Tools", "tools.title.1": "Security Tools", "tools.title.2": "I Build",
+        "tools.desc": "Open-source and custom security tools. Built with Python, PyQt6, and a focus on real-world usability.",
+        "tools.next": "Source [--&gt;]", "tools.version": "v",
+        // Services
+        "services.tag": "Services", "services.title.1": "Freelance", "services.title.2": "Security Services",
+        "services.desc": "Professional penetration testing, vulnerability assessments, and security consulting. Based in DE/AT/CH. Remote worldwide.",
+        "services.s1.t": "Web Application Pentest", "services.s1.d": "Full OWASP Top 10 coverage. Business logic flaws, auth bypass, IDOR, SSRF, XSS chains.",
+        "services.s1.p": "From €2,500",
+        "services.s2.t": "API Security Testing", "services.s2.d": "REST, GraphQL, gRPC. Schema analysis, authz bypass, rate limiting, mass assignment.",
+        "services.s2.p": "From €1,800",
+        "services.s3.t": "Network Pentest", "services.s3.d": "Internal/External. AD enumeration, lateral movement, privilege escalation.",
+        "services.s3.p": "From €3,000",
+        "services.s4.t": "Cloud Security Audit", "services.s4.d": "AWS/Azure/GCP. IAM misconfigs, S3/bucket exposure, serverless flaws.",
+        "services.s4.p": "From €2,500",
+        "services.s5.t": "Mobile App Pentest", "services.s5.d": "iOS/Android. Static/dynamic analysis, binary protection bypass, cert pinning.",
+        "services.s5.p": "From €2,200",
+        "services.s6.t": "Source Code Review", "services.s6.d": "White-box review for Python, JS/TS, Go, Java, C#. SAST + manual analysis.",
+        "services.s6.p": "From €3,500",
+        "services.s7.t": "OSINT Reconnaissance", "services.s7.d": "Target profiling, attack surface mapping, credential leaks, dark web monitoring.",
+        "services.s7.p": "From €800",
+        "services.s8.t": "Custom Security Tools", "services.s8.d": "Python, PyQt6, Go, Bash. C2 dashboards, automation pipelines, vulnerability scanners.",
+        "services.s8.p": "From €1,500",
+        "services.cta": "Request a Quote",
+        // Shop
+        "shop.tag": "Shop", "shop.title.1": "Security", "shop.title.2": "Products",
+        "shop.desc": "Quick security checks and reports. Instant delivery, no meetings needed.",
+        // Projects
+        "projects.tag": "Projects", "projects.title.1": "Featured", "projects.title.2": "Work",
+        "projects.view": "View All", "project.next": "View Project [-&gt;]",
+        // Blog
+        "blog.tag": "Blog", "blog.title.1": "Latest", "blog.title.2": "Writeups",
+        "blog.desc": "Bug bounty findings, tool tutorials, and security research notes.",
+        "blog.read": "Read More [-&gt;]",
+        // Hall of Fame
+        "hof.tag": "Bug Bounty", "hof.title.1": "Hall of", "hof.title.2": "Fame",
+        "hof.desc": "Verified vulnerabilities, reported responsibly. Active researcher on multiple platforms.",
+        "hof.reports": "Reports Submitted", "hof.confirmed": "Confirmed",
+        "hof.critical": "Critical/High", "hof.platforms": "Platforms",
+        // Testimonials
+        "test.tag": "References", "test.title.1": "What Clients", "test.title.2": "Say",
+        "test.desc": "Trusted by companies and individuals for security assessments and tool development.",
+        "test.cta": "Want to work together? I'm available for freelance pentesting and security consulting.",
+        "test.cta.btn": "Get a Free Quote",
+        // Contact
+        "contact.tag": "Contact", "contact.title.1": "Get in", "contact.title.2": "touch",
+        "contact.desc": "Have a project in mind? Need a security assessment? Drop me a message.",
+        // Footer
+        "footer.copy": "© 2025 HOBBY — All rights reserved",
+        "footer.tagline": "Security Researcher & Developer",
+        // Talks
+        "talks.tag": "Talks",
+        "talks.title.1": "Speaking", "talks.title.2": "& Conferences",
+        "talks.desc": "Security talks, workshop presentations, and conference appearances.",
+      },
+      de: {
+        // Nav
+        "nav.about": "Über mich", "nav.tools": "Tools", "nav.services": "Dienstleistungen",
+        "nav.projects": "Projekte", "nav.shop": "Shop", "nav.contact": "Kontakt",
+        "nav.hire": "JETZT ANHEUERN",
+        // Hero
+        "hero.title.1": "Security-Tools", "hero.title.2": "und Bugs",
+        "hero.title.3": "für Geld", "hero.title.4": "jagen",
+        "hero.desc": "Penetration Tester, Bug Bounty Jäger, Python Entwickler. Standort DE/AT/CH. Ich baue C2-Dashboards, OSINT-Tools und helfe Unternehmen ihre Infrastruktur abzusichern.",
+        "hero.stats.1": "24/7", "hero.stats.2": "Verfügbar", "hero.stats.3": "100%", "hero.stats.4": "Remote",
+        "hero.stats.5": "DE/AT/CH", "hero.stats.6": "Standort", "hero.stats.7": "v14", "hero.stats.8": "Tools gebaut",
+        "hero.cta.1": "Projekte", "hero.cta.2": "Kontakt",
+        // About
+        "about.tag": "Über mich",
+        "about.title.1": "Sicherheit ist kein Produkt,", "about.title.2": "sondern ein Prozess",
+        "about.desc.1": "DE/AT/CH Security-Spezialist. Ich baue Security-Tools in Python (C2-Dashboards, OSINT-Frameworks, Automatisierung) und jage Bugs auf HackerOne, Bugcrowd und Intigriti.",
+        "about.desc.2": "Mein Fokus: Web Application Security, Netzwerk-Pentesting und Tools die Security-Research schneller machen.",
+        "about.skills.1": "Web Security", "about.skills.2": "OWASP Top 10, API-Testing, Auth-Bypass",
+        "about.skills.3": "Penetration Testing", "about.skills.4": "Netzwerk, AD, Cloud, Mobile",
+        "about.skills.5": "OSINT", "about.skills.6": "Recon, Profiling, Dark Web Monitoring",
+        "about.skills.7": "Entwicklung", "about.skills.8": "Python, PyQt6, Security-Tools",
+        // Tools
+        "tools.tag": "Tools", "tools.title.1": "Security-Tools", "tools.title.2": "die ich baue",
+        "tools.desc": "Open-Source und Custom Security-Tools. Gebaut mit Python, PyQt6 und Fokus auf praktischen Nutzen.",
+        "tools.next": "Quellcode [--&gt;]", "tools.version": "v",
+        // Services
+        "services.tag": "Dienstleistungen", "services.title.1": "Freelance", "services.title.2": "Security Services",
+        "services.desc": "Professionelles Penetration Testing, Vulnerability Assessments und Security Consulting. Standort DE/AT/CH. Remote weltweit.",
+        "services.s1.t": "Web Application Pentest", "services.s1.d": "Volle OWASP Top 10 Abdeckung. Business-Logic-Fehler, Auth-Bypass, IDOR, SSRF, XSS-Ketten.",
+        "services.s1.p": "Ab €2.500",
+        "services.s2.t": "API Security Testing", "services.s2.d": "REST, GraphQL, gRPC. Schema-Analyse, Authz-Bypass, Rate Limiting.",
+        "services.s2.p": "Ab €1.800",
+        "services.s3.t": "Netzwerk Pentest", "services.s3.d": "Intern/Extern. AD-Enum, Laterale Bewegung, Privilege Escalation.",
+        "services.s3.p": "Ab €3.000",
+        "services.s4.t": "Cloud Security Audit", "services.s4.d": "AWS/Azure/GCP. IAM-Misconfigs, S3/Bucket-Exposition, Serverless-Fehler.",
+        "services.s4.p": "Ab €2.500",
+        "services.s5.t": "Mobile App Pentest", "services.s5.d": "iOS/Android. Statisch/dynamische Analyse, Binary-Protection-Bypass, Cert-Pinning.",
+        "services.s5.p": "Ab €2.200",
+        "services.s6.t": "Source Code Review", "services.s6.d": "White-Box-Review für Python, JS/TS, Go, Java, C#. SAST + manuelle Analyse.",
+        "services.s6.p": "Ab €3.500",
+        "services.s7.t": "OSINT Aufklärung", "services.s7.d": "Target-Profiling, Attack-Surface-Mapping, Credential-Leaks, Dark-Web-Monitoring.",
+        "services.s7.p": "Ab €800",
+        "services.s8.t": "Custom Security Tools", "services.s8.d": "Python, PyQt6, Go, Bash. C2-Dashboards, Automatisierung, Vulnerability-Scanner.",
+        "services.s8.p": "Ab €1.500",
+        "services.cta": "Angebot anfragen",
+        // Shop
+        "shop.tag": "Shop", "shop.title.1": "Security", "shop.title.2": "Produkte",
+        "shop.desc": "Schnelle Security-Checks und Reports. Sofortige Lieferung, keine Meetings nötig.",
+        // Projects
+        "projects.tag": "Projekte", "projects.title.1": "Ausgewählte", "projects.title.2": "Arbeit",
+        "projects.view": "Alle ansehen", "project.next": "Projekt ansehen [-&gt;]",
+        // Blog
+        "blog.tag": "Blog", "blog.title.1": "Aktuelle", "blog.title.2": "Writeups",
+        "blog.desc": "Bug-Bounty-Findings, Tool-Tutorials und Security-Research-Notizen.",
+        "blog.read": "Weiterlesen [-&gt;]",
+        // Hall of Fame
+        "hof.tag": "Bug Bounty", "hof.title.1": "Hall of", "hof.title.2": "Fame",
+        "hof.desc": "Verifizierte Schwachstellen, verantwortungsvoll gemeldet. Aktiver Researcher auf mehreren Plattformen.",
+        "hof.reports": "Reports Eingereicht", "hof.confirmed": "Bestätigt",
+        "hof.critical": "Kritisch/Hoch", "hof.platforms": "Plattformen",
+        // Testimonials
+        "test.tag": "Referenzen", "test.title.1": "Was Kunden", "test.title.2": "sagen",
+        "test.desc": "Vertrauenswürdig für Unternehmen und Privatpersonen bei Security-Assessments und Tool-Entwicklung.",
+        "test.cta": "Lust zusammenzuarbeiten? Ich bin verfügbar für Freelance-Pentesting und Security-Consulting.",
+        "test.cta.btn": "Kostenloses Angebot",
+        // Contact
+        "contact.tag": "Kontakt", "contact.title.1": "Nimm", "contact.title.2": "Kontakt auf",
+        "contact.desc": "Ein Projekt im Kopf? Security-Assessment nötig? Schreib mir einfach.",
+        // Footer
+        "footer.copy": "© 2025 HOBBY — Alle Rechte vorbehalten",
+        "footer.tagline": "Security Researcher & Entwickler",
+        // Talks
+        "talks.tag": "Vorträge",
+        "talks.title.1": "Speaking", "talks.title.2": "& Konferenzen",
+        "talks.desc": "Security-Vorträge, Workshops und Konferenz-Auftritte.",
+      }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'en';
+    let currentTheme = localStorage.getItem('theme') || 'dark';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang] && i18n[lang][key]) {
+          el.textContent = i18n[lang][key];
+        }
+      });
+      // Update active button
+      document.querySelectorAll('.lang-btn[data-lang]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+    }
+
+    function applyTheme(theme) {
+      currentTheme = theme;
+      localStorage.setItem('theme', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    // Init
+    applyLanguage(currentLang);
+    applyTheme(currentTheme);
+
+    // Language toggle
+    document.querySelectorAll('.lang-btn[data-lang]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+
+    // Theme toggle
+    document.querySelector('[data-theme-toggle]').addEventListener('click', () => {
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
   </script>
 </body>
